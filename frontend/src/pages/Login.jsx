@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import styled, { keyframes } from "styled-components";
+import { useUser } from "../hooks/useUser";
 
 const gradient = keyframes`
   0% {
@@ -30,7 +31,7 @@ const LoginForm = styled.form`
   align-items: center;
   margin-top: 20px;
 
-  .LoginButton {
+  button {
     text-decoration: none;
     margin-top: 20px;
     padding: 10px 20px;
@@ -58,20 +59,35 @@ const Input = styled.input`
 `;
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { login, isLogged } = useUser();
+  const [error, setError] = useState(null);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  useEffect(() => {
+    if (isLogged) {
+      navigate("/Feelings");
+    }
+  }, [isLogged, navigate]);
+
+  const handleUsernameChange = (e) => {
+    setEmail(e.target.value);
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
-  const handleSubmit = (event) => {
-    console.log("Username:", username);
-    console.log("Password:", password);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(email, password);
+  };
+
+  const handleCloseErrorModal = () => {
+    setShowErrorModal(false);
+    setError(null);
   };
 
   return (
@@ -80,19 +96,25 @@ function Login() {
       <LoginContainer>
         <h2>Login</h2>
         <LoginForm onSubmit={handleSubmit}>
-          <Label>Username</Label>
-          <Input type="text" value={username} onChange={handleUsernameChange} />
+          <Label>Email</Label>
+          <Input type="text" value={email} onChange={handleUsernameChange} />
           <Label>Password</Label>
           <Input
             type="password"
             value={password}
             onChange={handlePasswordChange}
           />
-          <Link to="/Feelings" className="LoginButton">
-            Login
-          </Link>
+          <button to="#">Login</button>
         </LoginForm>
       </LoginContainer>
+      {showErrorModal && (
+        <div className="modal" onClick={handleCloseErrorModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <p>{error}</p>
+            <button onClick={handleCloseErrorModal}>Cerrar</button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

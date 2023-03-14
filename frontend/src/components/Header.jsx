@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import logoAirtech from "../img/airtech.png";
+import { Link } from "react-router-dom";
+import { useUser } from "../hooks/useUser";
 
 const gradient = keyframes`
   0% {
@@ -27,17 +29,48 @@ const HeaderContainer = styled.div`
   & h2 {
     color: azure;
   }
+
+  & a {
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+  }
 `;
 
 const Logo = styled.img`
   height: 100px;
 `;
 
+const Container = styled.div`
+  display: flex;
+  position: absolute;
+  right: 20px;
+  height: 35px;
+`;
+
 function Header() {
+  const { isLogged, logout } = useUser();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    logout();
+  };
+
   return (
     <HeaderContainer>
       <Logo src={logoAirtech} />
       <h2></h2>
+      <Container>
+        {isLogged ? (
+          <Link to="#" onClick={handleClick}>
+            Logout
+          </Link>
+        ) : (
+          <Link to="/Login">Login</Link>
+        )}
+      </Container>
     </HeaderContainer>
   );
 }
