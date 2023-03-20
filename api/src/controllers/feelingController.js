@@ -3,10 +3,11 @@ const Feeling = require('../models/FeelingModel');
 const feelingController = {
   createFeeling: async (req, res) => {
     try {
-      const { name, emotion, jobRelated, resing, message } = req.body;
+      const { name, emotion, jobRelated, resing, message, area } = req.body;
 
       const newFeeling = new Feeling({
         name,
+        area,
         emotion,
         jobRelated,
         resing,

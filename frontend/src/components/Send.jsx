@@ -13,12 +13,13 @@ const Tittle = styled.div`
   text-align: center;
 `;
 
-function Send() { 
+function Send() {
   const { feelingData, jwt } = useContext(Context);
+
+  console.log("Renderizando");
 
   useEffect(() => {
     sendFeelingData(feelingData, jwt);
-    console.log("Renderizando");
   }, []);
 
   return (

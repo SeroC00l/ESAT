@@ -25,7 +25,7 @@ router.post("/login", async (req, res) => {
     );
 
     // Enviar el token en la respuesta
-    res.json({ message: "ok", token, name: user.name });
+    res.json({ message: "ok", token, name: user.name, area: user.area});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Error interno del servidor" });

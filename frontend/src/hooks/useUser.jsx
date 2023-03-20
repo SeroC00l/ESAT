@@ -2,30 +2,35 @@ import { useCallback, useContext } from "react";
 import { Context } from "../context/UserContext";
 
 function useUser() {
-  const { jwt, setJWT, setError, setShowErrorModal, setUserName } = useContext(Context);
+  const { jwt, setJWT, setError, setShowErrorModal, setUserName, setArea} =
+    useContext(Context);
 
-  const handleLoginResponse = useCallback((data) => {
-    if (!data) {
-      setError("Connection Error");
-      setShowErrorModal(true);
-      return;
-    }
-    const { message, token, name, error } = data;
+  const handleLoginResponse = useCallback(
+    (data) => {
+      if (!data) {
+        setError("Connection Error");
+        setShowErrorModal(true);
+        return;
+      }
+      const { message, token, name, error, area } = data;
 
-    if (message === "ok" && token) {
-      setJWT(token);
-      setUserName( name )
-    } else if (message === "no user found") {
-      setError("Invalid Mail");
-      setShowErrorModal(true);
-    } else if (message === "invalid password") {
-      setError("Invalid password");
-      setShowErrorModal(true);
-    } else {
-      setError(error || "Hubo un error al intentar iniciar sesión.");
-      setShowErrorModal(true);
-    }
-  }, [setJWT, setError, setShowErrorModal, setUserName]);
+      if (message === "ok" && token) {
+        setJWT(token);
+        setUserName(name);
+        setArea(area);
+      } else if (message === "no user found") {
+        setError("Invalid Mail");
+        setShowErrorModal(true);
+      } else if (message === "invalid password") {
+        setError("Invalid password");
+        setShowErrorModal(true);
+      } else {
+        setError(error || "Hubo un error al intentar iniciar sesión.");
+        setShowErrorModal(true);
+      }
+    },
+    [setJWT, setError, setShowErrorModal, setUserName]
+  );
 
   const login = useCallback(
     (email, password) => {

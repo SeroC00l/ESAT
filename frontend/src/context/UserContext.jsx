@@ -4,6 +4,7 @@ const Context = React.createContext({});
 
 function UserContextProvider({ children }) {
   const [jwt, setJWT] = useState(null);
+  const [area, setArea] = useState("");
   const [error, setError] = useState(null);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [jobRelated, setJobRelated] = useState(false);
@@ -12,6 +13,7 @@ function UserContextProvider({ children }) {
   const [inputValue, setInputValue] = useState("");
   const [feelingData, setFeelingData] = useState({
     name: "",
+    area: "",
     emotion: "",
     jobRelated: null,
     resing: null,
@@ -36,7 +38,9 @@ function UserContextProvider({ children }) {
         inputValue,
         setInputValue,
         userName,
-        setUserName
+        setUserName,
+        area,
+        setArea
       }}
     >
       {children}

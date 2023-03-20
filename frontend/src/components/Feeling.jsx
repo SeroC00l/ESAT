@@ -82,7 +82,8 @@ function Feeling() {
     setJobRelated,
     inputValue,
     setInputValue,
-    userName
+    userName,
+    area
   } = useContext(Context);
 
   const questions = {
@@ -105,6 +106,7 @@ function Feeling() {
     setFeelingData((prevData) => ({
       ...prevData,
       name,
+      area,
       emotion,
       jobRelated,
       resing,
