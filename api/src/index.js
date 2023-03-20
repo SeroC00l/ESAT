@@ -3,7 +3,6 @@ const cors = require("cors");
 const mongoose = require('mongoose');
 
 const app = express();
-const router = express.Router();
 
 // Habilitar CORS
 app.use(cors());
@@ -23,6 +22,10 @@ mongoose.connect('mongodb://localhost/esat_db', {
 }).catch((err) => {
   console.error('Error al conectar a la base de datos:', err);
 });
+
+// Incluir las rutas de usuario y sentimientos
+const feelingRoutes = require("./routes/feelingRoutes");
+app.use("/api", feelingRoutes);
 
 // Iniciar el servidor
 const port = process.env.PORT || 3000;

@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { Header } from "./Header";
+import { Context } from "../context/UserContext";
+import { sendFeelingData } from "../hooks/useFeelings";
 
-const Tittle = styled.div`      
+const Tittle = styled.div`
   margin-top: 50px;
   font-family: "Courier New", Courier, monospace;
   font-size: 50px;
   font-weight: bold;
   padding-bottom: 40px;
-  position: absolute;
-  left: 25%;
+  text-align: center;
 `;
 
-function Send() {
+function Send() { 
+  const { feelingData, jwt } = useContext(Context);
+
+  useEffect(() => {
+    sendFeelingData(feelingData, jwt);
+    console.log("Renderizando");
+  }, []);
+
   return (
     <>
       <Header />

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import { useParams, Link } from "react-router-dom";
 import { Header } from "./Header";
+import { Context } from "../context/UserContext";
+import { sendFeelingData } from "../hooks/useFeelings";
 
 const gradient = keyframes`
   0% {
@@ -21,8 +23,7 @@ const Tittle = styled.div`
   font-size: 50px;
   font-weight: bold;
   padding-bottom: 40px;
-  position: absolute;
-  left: 45%;
+  text-align: center;
 `;
 
 const Container = styled.div`
@@ -52,7 +53,7 @@ const Container = styled.div`
   }
 `;
 
-const Input = styled.textarea`
+const MessageStyle = styled.textarea`
   height: 200px;
   width: 500px;
   padding: 10px;
@@ -74,16 +75,51 @@ const Input = styled.textarea`
   }
 `;
 
-function Why() {
-  let emotion = useParams().emotion;
+function Message() {
+  const emotion = useParams().emotion;
+
+  const {
+    jwt,
+    inputValue,
+    setInputValue,
+    feelingData,
+    setFeelingData,
+    resing,
+    jobRelated,
+  } = useContext(Context);
+
+  const handleInputValueChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleSendClick = () => {
+    setFeelingData((prevData) => ({
+      ...prevData,
+      emotion,
+      resing,
+      jobRelated,
+      message: inputValue,
+    }));
+  };
+
+  const title =
+    jobRelated && resing
+      ? "Why?"
+      : jobRelated && !resing
+      ? "What do you dislike about your job?"
+      : `what makes you feel ${emotion}?`;
 
   return (
     <>
       <Header />
-      <Tittle>Why?</Tittle>
-      <Input type="text-box" />
+      <Tittle>{title}</Tittle>
+      <MessageStyle value={inputValue} onChange={handleInputValueChange} />
       <Container>
-        <Link className="ButtonStyle" to={`/Feelings/${emotion}/send`}>
+        <Link
+          className="ButtonStyle"
+          onClick={handleSendClick}
+          to={`/Feelings/${emotion}/send`}
+        >
           send
         </Link>
       </Container>
@@ -91,4 +127,4 @@ function Why() {
   );
 }
 
-export { Why };
+export { Message };

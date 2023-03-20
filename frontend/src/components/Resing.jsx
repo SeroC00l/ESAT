@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import { useParams, Link } from "react-router-dom";
 import { Header } from "./Header";
+import { Context } from "../context/UserContext";
 
 const gradient = keyframes`
   0% {
@@ -58,17 +59,44 @@ const Container = styled.div`
 `;
 
 function Resing() {
-  let emotion = useParams().emotion;
+  const emotion = useParams().emotion;
+
+  const { setFeelingData, resing, setResing } =
+    useContext(Context);
+
+  const handleSendClick = () => {
+    setFeelingData((prevData) => ({
+      ...prevData,
+      resing,
+    }));
+  };
+
   return (
     <>
       <Header />
       <Tittle>Are you thinking on resigning?</Tittle>
       <Container>
         <Buttons>
-          <Link className="ButtonStyle" to={`/Feelings/${emotion}/resing/why`}>
+          <Link
+            className="ButtonStyle"
+            to={`/Feelings/${emotion}/resing/message`}
+            onClick={() => {
+              handleSendClick();
+              setResing(true);
+            }}
+          >
             Yes
           </Link>
-          <Link className="ButtonStyle">Not</Link>
+          <Link
+            to={`/Feelings/${emotion}/resing/message`}
+            className="ButtonStyle"
+            onClick={() => {
+              handleSendClick();
+              setResing(false);
+            }}
+          >
+            Not
+          </Link>
         </Buttons>
       </Container>
     </>

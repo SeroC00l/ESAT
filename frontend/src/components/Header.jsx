@@ -41,6 +41,7 @@ const HeaderContainer = styled.div`
 
 const Logo = styled.img`
   height: 100px;
+  user-select: none;
 `;
 
 const Container = styled.div`
@@ -52,7 +53,7 @@ const Container = styled.div`
 
 function Header() {
   const { isLogged, logout } = useUser();
-
+  
   const handleClick = (e) => {
     e.preventDefault();
     logout();
@@ -64,8 +65,8 @@ function Header() {
       <h2></h2>
       <Container>
         {isLogged ? (
-          <Link to="#" onClick={handleClick}>
-            Logout
+          <Link to="/Login" onClick={handleClick}>
+            Log out
           </Link>
         ) : (
           <Link to="/Login">Login</Link>

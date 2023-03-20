@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import styled, { keyframes } from "styled-components";
+import { Context } from "../context/UserContext";
 import { useUser } from "../hooks/useUser";
 
 const gradient = keyframes`
@@ -58,13 +59,58 @@ const Input = styled.input`
   width: 250px;
 `;
 
+const Modal = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 200px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  :hover {
+    outline: 2px solid #ff000070;
+    border-radius: 5px;
+  }
+
+`;
+
+
+const ModalContent = styled.div`
+  background-color: #d2838370;
+  padding: 15px;
+  width: 200px;
+  border-radius: 5px;
+  user-select: none;
+
+  .closeModal {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    color: #333;
+    height: 35px;
+    width: 35px;
+    border: none;
+  text-align: center;
+    background-color: #ec5b5b60;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: inset 2px 2px 10px rgba(186, 41, 41, 0.5);
+    cursor: pointer;
+    color:rgba(186, 41, 41);
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+
+  }
+`;
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { login, isLogged } = useUser();
-  const [error, setError] = useState(null);
-  const [showErrorModal, setShowErrorModal] = useState(false);
+  const { error, showErrorModal, setError, setShowErrorModal } =
+    useContext(Context);
 
   useEffect(() => {
     if (isLogged) {
@@ -107,13 +153,13 @@ function Login() {
           <button to="#">Login</button>
         </LoginForm>
       </LoginContainer>
-      {showErrorModal && (
-        <div className="modal" onClick={handleCloseErrorModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      {error && showErrorModal && (
+        <Modal onClick={handleCloseErrorModal}>
+          <ModalContent onClick={(e) => e.stopPropagation()}>
             <p>{error}</p>
-            <button onClick={handleCloseErrorModal}>Cerrar</button>
-          </div>
-        </div>
+            <button className="closeModal" onClick={handleCloseErrorModal}>X</button>
+          </ModalContent>
+        </Modal>
       )}
     </>
   );

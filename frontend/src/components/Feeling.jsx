@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { Header } from "./Header";
+import { Context } from "../context/UserContext";
 
 const gradient = keyframes`
   0% {
@@ -46,7 +47,7 @@ const QuestionsContainer = styled.div`
   }
 `;
 
-const Input = styled.textarea`
+const Message = styled.textarea`
   height: 200px;
   width: 500px;
   padding: 10px;
@@ -71,7 +72,18 @@ const Buttons = styled.div`
 `;
 
 function Feeling() {
-  let emotion = useParams().emotion;
+  const emotion = useParams().emotion;
+
+  const {
+    setFeelingData,
+    resing,
+    setResing,
+    jobRelated,
+    setJobRelated,
+    inputValue,
+    setInputValue,
+    userName
+  } = useContext(Context);
 
   const questions = {
     Happy: "What made you happy today?",
@@ -83,21 +95,65 @@ function Feeling() {
 
   const question = questions[emotion];
 
+  const name = userName;
+
+  const handleInputValueChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleSendClick = () => {
+    setFeelingData((prevData) => ({
+      ...prevData,
+      name,
+      emotion,
+      jobRelated,
+      resing,
+      message: inputValue,
+    }));
+  };
+
   return (
     <QuestionsContainer>
       <Header />
       <Tittle>{question}</Tittle>
       {["Sad", "Angry", "Worried"].includes(emotion) && (
         <Buttons>
-          <Link className="ButtonStyle" to={`/Feelings/${emotion}/resing`}>Yes</Link>
-          <Link className="ButtonStyle">Not</Link>
+          <Link
+            className="ButtonStyle"
+            onClick={() => {
+              handleSendClick();
+              setJobRelated(true);
+            }}
+            to={`/Feelings/${emotion}/resing`}
+          >
+            Yes
+          </Link>
+          <Link
+            to={`/Feelings/${emotion}/message`}
+            className="ButtonStyle"
+            onClick={() => {
+              handleSendClick();
+              setJobRelated(false);
+              setResing(false);
+            }}
+          >
+            Not
+          </Link>
         </Buttons>
       )}
       {["Happy", "Neutral"].includes(emotion) && (
         <>
-          <Input type="text-box" />
-          <Link className="ButtonStyle" to={`/Feelings/${emotion}/send`}>
-            send
+          <Message value={inputValue} onChange={handleInputValueChange} />
+          <Link
+            className="ButtonStyle"
+            onClick={() => {
+              handleSendClick();
+              setJobRelated(false);
+              setResing(false);
+            }}
+            to={`/Feelings/${emotion}/send`}
+          >
+            Send
           </Link>
         </>
       )}

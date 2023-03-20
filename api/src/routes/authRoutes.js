@@ -2,6 +2,8 @@ const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
 const loginRouter = require('./login');
+const feelingRouter = require('./feelingRoutes');
+
 
 router.use('/auth', loginRouter);
 
@@ -16,4 +18,5 @@ router.get('/users', async (req, res) => {
   }
 });
 
+//rurtas feelings
 module.exports = router;
