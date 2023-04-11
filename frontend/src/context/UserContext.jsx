@@ -5,15 +5,20 @@ const Context = React.createContext({});
 function UserContextProvider({ children }) {
   const [jwt, setJWT] = useState(null);
   const [area, setArea] = useState("");
+  const [rol, setRol] = useState("");
+  const [supervisor, setSupervisor] = useState("");
   const [error, setError] = useState(null);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [jobRelated, setJobRelated] = useState(false);
   const [resing, setResing] = useState(false);
-  const [userName, setUserName] = useState("")
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [feelingData, setFeelingData] = useState({
     name: "",
     area: "",
+    rol: "",
+    supervisor: "",
     emotion: "",
     jobRelated: null,
     resing: null,
@@ -40,7 +45,13 @@ function UserContextProvider({ children }) {
         userName,
         setUserName,
         area,
-        setArea
+        setArea,
+        supervisor,
+        setSupervisor,
+        rol,
+        setRol,
+        loggedIn,
+        setLoggedIn,
       }}
     >
       {children}

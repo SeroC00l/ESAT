@@ -1,9 +1,19 @@
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useState, useEffect } from "react";
 import { Context } from "../context/UserContext";
 
 function useUser() {
-  const { jwt, setJWT, setError, setShowErrorModal, setUserName, setArea} =
-    useContext(Context);
+  const {
+    jwt,
+    setJWT,
+    setError,
+    setShowErrorModal,
+    setUserName,
+    setArea,
+    setRol,
+    setSupervisor,
+    loggedIn,
+    setLoggedIn,
+  } = useContext(Context);
 
   const handleLoginResponse = useCallback(
     (data) => {
@@ -12,12 +22,15 @@ function useUser() {
         setShowErrorModal(true);
         return;
       }
-      const { message, token, name, error, area } = data;
+      const { message, token, name, error, area, rol, supervisor } = data;
 
       if (message === "ok" && token) {
         setJWT(token);
         setUserName(name);
         setArea(area);
+        setRol(rol);
+        setSupervisor(supervisor);
+        setLoggedIn(true);
       } else if (message === "no user found") {
         setError("Invalid Mail");
         setShowErrorModal(true);

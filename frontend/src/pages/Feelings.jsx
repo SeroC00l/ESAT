@@ -17,10 +17,6 @@ const FeelingsContainer = styled.div`
   align-items: center;
   justify-content: center;
   height: auto;
-  position: absolute;
-  transform: translateY(-20%);
-  top: 50%;
-  left: 25%;
   gap: 40px;
 
   .linkstyle {
@@ -42,11 +38,7 @@ const FeelingStyle = styled.div`
 `;
 
 const Tittle = styled.div`
-  margin-top: 50px;
-  position: absolute;
-  width: 1000px;
-  left: 57%;
-  transform: translateX(-50%);
+  margin: 100px 0px;
 
   h2 {
     font-family: "Courier New", Courier, monospace;
@@ -55,45 +47,55 @@ const Tittle = styled.div`
   }
 `;
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 function Feelings() {
   return (
     <>
       <Header />
-      <Tittle>
-        <h2>How Are You Feeling Today?</h2>
-      </Tittle>
-      <FeelingsContainer>
-        <Link to="/Feelings/Happy" className="linkstyle">
-          <FeelingStyle>
-            <Emoji src={Happy} />
-            <span>Happy</span>
-          </FeelingStyle>
-        </Link>
-        <Link to="/Feelings/Angry" className="linkstyle">
-          <FeelingStyle>
-            <Emoji src={Angry} />
-            <span>Angry</span>
-          </FeelingStyle>
-        </Link>
-        <Link to="/Feelings/Neutral" className="linkstyle">
-          <FeelingStyle>
-            <Emoji src={Neutral} />
-            <span>Neutral</span>
-          </FeelingStyle>
-        </Link>
-        <Link to="/Feelings/Worried" className="linkstyle">
-          <FeelingStyle>
-            <Emoji src={Worried} />
-            <span>Worried</span>
-          </FeelingStyle>
-        </Link>
-        <Link to="/Feelings/Sad" className="linkstyle">
-          <FeelingStyle>
-            <Emoji src={Sad} />
-            <span>Sad</span>
-          </FeelingStyle>
-        </Link>
-      </FeelingsContainer>
+      <Container>
+        <div>
+          <Tittle>
+            <h2>How Are You Feeling Today?</h2>
+          </Tittle>
+          <FeelingsContainer>
+            <Link to="/Feelings/Happy/" className="linkstyle">
+              <FeelingStyle>
+                <Emoji src={Happy} />
+                <span>Happy</span>
+              </FeelingStyle>
+            </Link>
+            <Link to="/Feelings/Angry" className="linkstyle">
+              <FeelingStyle>
+                <Emoji src={Angry} />
+                <span>Angry</span>
+              </FeelingStyle>
+            </Link>
+            <Link to="/Feelings/Neutral" className="linkstyle">
+              <FeelingStyle>
+                <Emoji src={Neutral} />
+                <span>Neutral</span>
+              </FeelingStyle>
+            </Link>
+            <Link to="/Feelings/Worried" className="linkstyle">
+              <FeelingStyle>
+                <Emoji src={Worried} />
+                <span>Worried</span>
+              </FeelingStyle>
+            </Link>
+            <Link to="/Feelings/Sad" className="linkstyle">
+              <FeelingStyle>
+                <Emoji src={Sad} />
+                <span>Sad</span>
+              </FeelingStyle>
+            </Link>
+          </FeelingsContainer>
+        </div>
+      </Container>
     </>
   );
 }

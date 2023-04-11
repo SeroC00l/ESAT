@@ -21,9 +21,8 @@ const Tittle = styled.div`
   font-family: "Courier New", Courier, monospace;
   font-size: 50px;
   font-weight: bold;
-  padding-bottom: 40px;
-  position: absolute;
-  left: 22%;
+  padding-bottom: 60px;
+  text-align: center;
 `;
 
 const Buttons = styled.div`
@@ -37,10 +36,6 @@ const Container = styled.div`
   align-items: center;
   gap: 20px;
   overflow: hidden;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translateX(-50%);
 
   .ButtonStyle {
     width: 40px;
@@ -95,7 +90,7 @@ function Resing() {
               setResing(false);
             }}
           >
-            Not
+            No
           </Link>
         </Buttons>
       </Container>

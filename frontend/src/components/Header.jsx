@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import logoAirtech from "../img/airtech.png";
-import { Link } from "react-router-dom";
-import { useUser } from "../hooks/useUser";
+import Dashboard from "../img/Dashboard.png";
+import { Context } from "../context/UserContext";
+import { Link, useLocation } from "react-router-dom";
 
 const gradient = keyframes`
   0% {
@@ -31,8 +32,8 @@ const HeaderContainer = styled.div`
   }
 
   & a {
-    display: flex;
-    justify-content: flex-end;
+    position: absolute;
+    right: 20px;
     text-decoration: none;
     color: #fff;
     font-size: 20px;
@@ -44,34 +45,31 @@ const Logo = styled.img`
   user-select: none;
 `;
 
-const Container = styled.div`
-  display: flex;
-  position: absolute;
-  right: 20px;
-  height: 35px;
-`;
-
 function Header() {
-  const { isLogged, logout } = useUser();
-  
-  const handleClick = (e) => {
-    e.preventDefault();
-    logout();
+  const { loggedIn, rol, setLoggedIn } = useContext(Context);
+  const location = useLocation();
+
+  const showDashboardLink =
+    loggedIn && rol !== "Agent" && location.pathname !== "/Dashboard";
+  const showLogoutLink = loggedIn && location.pathname === "/Dashboard";
+
+  const handleLogout = () => {
+    setLoggedIn(false);
   };
 
   return (
     <HeaderContainer>
-      <Logo src={logoAirtech} />
-      <h2></h2>
-      <Container>
-        {isLogged ? (
-          <Link to="/Login" onClick={handleClick}>
-            Log out
-          </Link>
-        ) : (
-          <Link to="/Login">Login</Link>
-        )}
-      </Container>
+      {location.pathname === "/Dashboard" ? (
+        <Logo src={Dashboard} />
+      ) : (
+        <Logo src={logoAirtech} />
+      )}
+      {showDashboardLink && <Link to={"/Dashboard"}>Dashboard</Link>}
+      {showLogoutLink && (
+        <Link to={"/Login"} onClick={handleLogout}>
+          Logout
+        </Link>
+      )}
     </HeaderContainer>
   );
 }

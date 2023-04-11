@@ -12,7 +12,27 @@ export const sendFeelingData = async (feelingData, token) => {
     });
     const data = await response.json();
     if (response.ok) {
-      console.log("data saved");
+      //console.log("data saved");
+    } else {
+      console.error(data.error);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getUniqueSupervisors = async (token) => {
+  try {
+    const response = await fetch(`${API_URL}/supervisors`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return data;
     } else {
       console.error(data.error);
     }

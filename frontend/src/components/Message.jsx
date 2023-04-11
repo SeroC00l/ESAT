@@ -3,7 +3,6 @@ import styled, { keyframes } from "styled-components";
 import { useParams, Link } from "react-router-dom";
 import { Header } from "./Header";
 import { Context } from "../context/UserContext";
-import { sendFeelingData } from "../hooks/useFeelings";
 
 const gradient = keyframes`
   0% {
@@ -32,10 +31,6 @@ const Container = styled.div`
   align-items: center;
   gap: 20px;
   overflow: hidden;
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translateX(-50%);
 
   .ButtonStyle {
     width: 40px;
@@ -64,9 +59,6 @@ const MessageStyle = styled.textarea`
   overflow-y: auto;
   resize: none;
   vertical-align: top;
-  position: absolute;
-  top: 40%;
-  left: 33%;
 
   &:focus {
     outline: none;
@@ -113,8 +105,9 @@ function Message() {
     <>
       <Header />
       <Tittle>{title}</Tittle>
-      <MessageStyle value={inputValue} onChange={handleInputValueChange} />
       <Container>
+      <MessageStyle value={inputValue} onChange={handleInputValueChange} />
+      
         <Link
           className="ButtonStyle"
           onClick={handleSendClick}

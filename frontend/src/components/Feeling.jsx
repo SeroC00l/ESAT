@@ -83,11 +83,13 @@ function Feeling() {
     inputValue,
     setInputValue,
     userName,
-    area
+    area,
+    rol,
+    supervisor,
   } = useContext(Context);
 
   const questions = {
-    Happy: "What made you happy today?",
+    Happy: "that's awesome, thank you for answering 😊",
     Angry: "Is it job related?",
     Neutral: "What can we do to make it better?",
     Worried: "Is it job related?",
@@ -107,6 +109,8 @@ function Feeling() {
       ...prevData,
       name,
       area,
+      supervisor,
+      rol,
       emotion,
       jobRelated,
       resing,
@@ -139,13 +143,15 @@ function Feeling() {
               setResing(false);
             }}
           >
-            Not
+            No
           </Link>
         </Buttons>
       )}
       {["Happy", "Neutral"].includes(emotion) && (
         <>
-          <Message value={inputValue} onChange={handleInputValueChange} />
+          {"Neutral".includes(emotion) && (
+            <Message value={inputValue} onChange={handleInputValueChange} />
+          )}
           <Link
             className="ButtonStyle"
             onClick={() => {

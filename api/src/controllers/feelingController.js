@@ -1,13 +1,30 @@
-const Feeling = require('../models/FeelingModel');
+const Feeling = require("../models/FeelingModel");
+
+const date = () => {
+  let today = new Date();
+  let fecha = today.toLocaleDateString("es-US");
+  return fecha;
+};
 
 const feelingController = {
   createFeeling: async (req, res) => {
     try {
-      const { name, emotion, jobRelated, resing, message, area } = req.body;
+      const {
+        name,
+        emotion,
+        jobRelated,
+        resing,
+        message,
+        area,
+        rol,
+        supervisor,
+      } = req.body;
 
       const newFeeling = new Feeling({
         name,
         area,
+        rol,
+        supervisor,
         emotion,
         jobRelated,
         resing,
@@ -45,13 +62,17 @@ const feelingController = {
       const { id } = req.params;
       const { name, emotion, jobRelated, resing, message } = req.body;
 
-      const updatedFeeling = await Feeling.findByIdAndUpdate(id, {
-        name,
-        emotion,
-        jobRelated,
-        resing,
-        message,
-      }, { new: true });
+      const updatedFeeling = await Feeling.findByIdAndUpdate(
+        id,
+        {
+          name,
+          emotion,
+          jobRelated,
+          resing,
+          message,
+        },
+        { new: true }
+      );
 
       if (!updatedFeeling) {
         res.status(404).send("Feeling not found");
@@ -79,7 +100,43 @@ const feelingController = {
       console.error(err);
       res.status(500).send("Error deleting feeling");
     }
-  }
+  },
+
+  getDifferentSupervisors: async (req, res) => {
+    try {
+      const supervisors = await Feeling.distinct("supervisor");
+      res.json(supervisors);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error retrieving differents supervisors");
+    }
+  },
+
+  updateActionTaken: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { actionTaken } = req.body;
+      const { actionTaker } = req.body;
+
+      const updatedFeeling = await Feeling.findByIdAndUpdate(
+        id,
+        {
+          actionTaken,
+          takeAction: "action taken by " + actionTaker + " at " + date(),
+        },
+        { new: true }
+      );
+
+      if (!updatedFeeling) {
+        res.status(404).send("Feeling not found");
+      } else {
+        res.json(updatedFeeling);
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error updating action taken");
+    }
+  },
 };
 
 module.exports = feelingController;

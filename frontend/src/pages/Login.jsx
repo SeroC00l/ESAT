@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import styled, { keyframes } from "styled-components";
 import { Context } from "../context/UserContext";
@@ -32,7 +32,7 @@ const LoginForm = styled.form`
   align-items: center;
   margin-top: 20px;
 
-  button {
+  a {
     text-decoration: none;
     margin-top: 20px;
     padding: 10px 20px;
@@ -60,6 +60,7 @@ const Input = styled.input`
 `;
 
 const Modal = styled.div`
+  overflow: hidden;
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -72,9 +73,7 @@ const Modal = styled.div`
     outline: 2px solid #ff000070;
     border-radius: 5px;
   }
-
 `;
-
 
 const ModalContent = styled.div`
   background-color: #d2838370;
@@ -82,6 +81,7 @@ const ModalContent = styled.div`
   width: 200px;
   border-radius: 5px;
   user-select: none;
+  overflow: hidden;
 
   .closeModal {
     position: absolute;
@@ -91,16 +91,16 @@ const ModalContent = styled.div`
     height: 35px;
     width: 35px;
     border: none;
-  text-align: center;
+    text-align: center;
+    overflow: hidden;
     background-color: #ec5b5b60;
     border-radius: 50%;
     padding: 10px;
     box-shadow: inset 2px 2px 10px rgba(186, 41, 41, 0.5);
     cursor: pointer;
-    color:rgba(186, 41, 41);
+    color: rgba(186, 41, 41);
     font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
-
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   }
 `;
 
@@ -108,15 +108,9 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login, isLogged } = useUser();
-  const { error, showErrorModal, setError, setShowErrorModal } =
+  const { login } = useUser();
+  const { error, showErrorModal, setError, setShowErrorModal, loggedIn } =
     useContext(Context);
-
-  useEffect(() => {
-    if (isLogged) {
-      navigate("/Feelings");
-    }
-  }, [isLogged, navigate]);
 
   const handleUsernameChange = (e) => {
     setEmail(e.target.value);
@@ -131,17 +125,23 @@ function Login() {
     login(email, password);
   };
 
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/Feelings");
+    }
+  }, [loggedIn, navigate]);
+
   const handleCloseErrorModal = () => {
     setShowErrorModal(false);
     setError(null);
   };
 
   return (
-    <>
+    <div className="login">
       <Header />
       <LoginContainer>
         <h2>Login</h2>
-        <LoginForm onSubmit={handleSubmit}>
+        <LoginForm>
           <Label>Email</Label>
           <Input type="text" value={email} onChange={handleUsernameChange} />
           <Label>Password</Label>
@@ -150,18 +150,20 @@ function Login() {
             value={password}
             onChange={handlePasswordChange}
           />
-          <button to="#">Login</button>
+          <Link onClick={handleSubmit}>Login</Link>
         </LoginForm>
       </LoginContainer>
       {error && showErrorModal && (
         <Modal onClick={handleCloseErrorModal}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
             <p>{error}</p>
-            <button className="closeModal" onClick={handleCloseErrorModal}>X</button>
+            <button className="closeModal" onClick={handleCloseErrorModal}>
+              X
+            </button>
           </ModalContent>
         </Modal>
       )}
-    </>
+    </div>
   );
 }
 
