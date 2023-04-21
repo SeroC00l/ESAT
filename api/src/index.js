@@ -14,7 +14,7 @@ app.use(express.json());
 const authRoutes = require("./routes/authRoutes");
 app.use("/", authRoutes);
 
-mongoose.connect('mongodb://127.0.0.1:27017/esat_db', {
+mongoose.connect('mongodb://192.168.77.10:27017/esat_db', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
