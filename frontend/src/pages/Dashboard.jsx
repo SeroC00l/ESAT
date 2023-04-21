@@ -4,128 +4,17 @@ import axios from "axios";
 import { Header } from "../components/Header";
 import { getUniqueSupervisors } from "../hooks/useFeelings";
 import { Context } from "../context/UserContext";
-import { Link } from "react-router-dom";
-
-const gradient = keyframes`
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-`;
-
-const DashboardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0rem 2rem;
-
-  .analytics {
-    margin: 10px 0px;
-    padding: 10px 20px;
-    background: #63ed6d;
-    background-size: 400% 400%;
-    animation: ${gradient} 15s ease infinite;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    color: white;
-  }
-
-  .ButtonStyle {
-    text-decoration: none;
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background: linear-gradient(-45deg, #00bfff, #0080ff, #5cdced, #c246ef);
-    background-size: 400% 400%;
-    animation: ${gradient} 15s ease infinite;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  font-family: "Roboto", sans-serif;
-
-  label {
-    display: flex;
-    flex-direction: column;
-
-    select, input {
-      margin-top: 0.5rem;
-      padding: 0.5rem;
-      border: 1px solid #dddddd;
-      border-radius: 5px;
-    }
-  }
-
-  th {
-    background-color: #f8f8f8;
-    width: auto;
-    color: #333333;
-    font-weight: bold;
-    font-size: 18px;
-    padding: 5px;
-    text-align: center;
-    border-bottom: 2px solid #dddddd;
-  }
-
-  td {
-    background-color: #ffffff;
-    color: #333333;
-    padding: 10px;
-    border: 1px solid #dddddd;
-    max-width: 200px;
-
-    .takeAction {
-      text-decoration: none;
-      text-align: center;
-      padding: 5px 10px;
-      background: #24df9d;
-      background-size: 400% 400%;
-      animation: ${gradient} 15s ease infinite;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    &:first-child {
-      border-left: 2px solid #dddddd;
-    }
-
-    &:last-child {
-      border-right: 2px solid #dddddd;
-    }
-  }
-`;
-
-const TruncatedComment = styled.span`
-  max-height: 3.6rem; /* Dos líneas con el tamaño de fuente actual */
-  overflow: hidden;
-`;
 
 function Dashboard() {
   const [feelings, setFeelings] = useState([]);
   const [supervisors, setSupervisors] = useState([]);
   const token = localStorage.getItem("token");
-  const { userName, rol } = useContext(Context);
+  const { userName, rol, area } = useContext(Context);
   const [isEditingActionTaken, setIsEditingActionTaken] = useState(false);
   const [selectedFeelingId, setSelectedFeelingId] = useState(null);
   const [actionTakenText, setActionTakenText] = useState("");
+  const [isEditingSecondAction, setIsEditingSecondAction] = useState(false);
+  const [secondAction, setSecondAction] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [feelingsPerPage] = useState(10);
   const [filter, setFilter] = useState({
@@ -136,10 +25,40 @@ function Dashboard() {
     emotion: "",
     date: "",
   });
+  //const [loading, setLoading] = useState(false);
+
+  /*const handleExport = async () => {
+    setLoading(true);
+
+    try {
+      // Hacer una solicitud GET a la ruta de la API utilizando axios
+      const response = await axios.get("http://192.168.77.10:3000/api/export", {
+        responseType: "blob",
+      });
+
+      // Crear un objeto URL para descargar el blob como un archivo
+      const url = URL.createObjectURL(new Blob([response.data]));
+
+      // Crear un enlace de descarga y hacer clic en él para descargar el archivo
+      const downloadLink = document.createElement("a");
+      downloadLink.href = url;
+      downloadLink.download = "exportacion.xlsx";
+      downloadLink.click();
+
+      // Limpiar el objeto URL
+      URL.revokeObjectURL(url);
+
+      setLoading(false);
+    } catch (err) {
+      console.error("Error al exportar la hoja de cálculo", err);
+      alert("Error al exportar la hoja de cálculo");
+      setLoading(false);
+    }
+  };*/
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/feelings")
+      .get("http://192.168.77.10:3000/api/feelings")
       .then((res) => setFeelings(res.data))
       .catch((err) => console.error(err));
   }, [actionTakenText]);
@@ -147,13 +66,12 @@ function Dashboard() {
   const handleSaveActionTaken = async () => {
     try {
       const response = await axios.patch(
-        `http://localhost:3000/api/${selectedFeelingId}`,
+        `http://192.168.77.10:3000/api/${selectedFeelingId}`,
         {
           actionTaken: actionTakenText,
           actionTaker: userName,
         }
       );
-      console.log(response.data);
       // Actualizar la lista de emociones en el estado para mostrar el cambio en la tabla
       setFeelings((prevFeelings) =>
         prevFeelings.map((feeling) =>
@@ -166,6 +84,31 @@ function Dashboard() {
       setIsEditingActionTaken(false);
       setSelectedFeelingId(null);
       setActionTakenText("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSaveSecondAction = async () => {
+    try {
+      const response = await axios.patch(
+        `http://192.168.77.10:3000/api/second/${selectedFeelingId}`,
+        {
+          secondAction: secondAction,
+        }
+      );
+      // Actualizar la lista de emociones en el estado para mostrar el cambio en la tabla
+      setFeelings((prevFeelings) =>
+        prevFeelings.map((feeling) =>
+          feeling._id === selectedFeelingId
+            ? { ...feeling, secondAction: secondAction }
+            : feeling
+        )
+      );
+      // Reiniciar los estados de edición
+      setIsEditingSecondAction(false);
+      setSelectedFeelingId(null);
+      setSecondAction("");
     } catch (error) {
       console.error(error);
     }
@@ -187,12 +130,10 @@ function Dashboard() {
     });
   };
 
-  console.log(filter);
-
   const filteredFeelings = feelings.filter((feeling) => {
     let isMatch = true;
 
-    if (filter.area && filter.area !== feeling.area) {
+    if (area !== feeling.area) {
       isMatch = false;
     }
 
@@ -241,6 +182,13 @@ function Dashboard() {
     setActionTakenText(feeling.actionTaken);
   };
 
+  const handleSecondAction = (id) => {
+    handleSelectFeeling(id);
+    setIsEditingSecondAction(true);
+    const feeling = feelings.find((feeling) => feeling._id === id);
+    setSecondAction(feeling.secondAction);
+  };
+
   const indexOfLastFeeling = currentPage * feelingsPerPage;
   const indexOfFirstFeeling = indexOfLastFeeling - feelingsPerPage;
   const currentFeelings = filteredFeelings.slice(
@@ -253,9 +201,6 @@ function Dashboard() {
     <>
       <Header />
       <DashboardContainer>
-        <Link className="analytics" to="/Dashboard/Analytics ">
-          Analytics
-        </Link>
         <Table>
           <thead>
             <tr>
@@ -366,19 +311,48 @@ function Dashboard() {
                   {feeling.date} {feeling.time}
                 </td>
                 <td>
-                  {!feeling.takeAction && !feeling.actionTaken && (
-                    <button
-                      className="takeAction"
-                      onClick={() => handleTakeAction(feeling._id)}
-                    >
-                      Take action
-                    </button>
-                  )}
+                  {!feeling.takeAction &&
+                    !feeling.actionTaken &&
+                    feeling.emotion !== "Happy" && (
+                      <button
+                        className="takeAction"
+                        onClick={() => handleTakeAction(feeling._id)}
+                      >
+                        Take action
+                      </button>
+                    )}
                   {feeling.takeAction && feeling.actionTaken && (
-                    <span>{feeling.takeAction}</span>
+                    <span>
+                      {feeling.takeAction}{" "}
+                      {rol === "Manager" && !feeling.secondAction && (
+                        <button
+                          className="secondAction"
+                          onClick={() => handleSecondAction(feeling._id)}
+                        >
+                          Second Action
+                        </button>
+                      )}
+                    </span>
                   )}
                 </td>
                 <td>
+                  {feeling._id === selectedFeelingId &&
+                  isEditingSecondAction ? (
+                    <div>
+                      <textarea
+                        value={secondAction}
+                        onChange={(e) => setSecondAction(e.target.value)}
+                      />
+                      <button
+                        className="takeAction"
+                        onClick={handleSaveSecondAction}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  ) : (
+                    <span></span>
+                  )}
                   {feeling._id === selectedFeelingId && isEditingActionTaken ? (
                     <div>
                       <textarea
@@ -393,9 +367,15 @@ function Dashboard() {
                       </button>
                     </div>
                   ) : (
-                    <div>
-                      <span>{truncateComment(feeling.actionTaken)}</span>
-                    </div>
+                    <>
+                      <p>{feeling.actionTaken}</p>
+                      {feeling.secondAction && (
+                        <p>
+                          <span>Manager action:</span>
+                          {feeling.secondAction}
+                        </p>
+                      )}
+                    </>
                   )}
                 </td>
               </tr>
@@ -424,5 +404,116 @@ function Dashboard() {
     </>
   );
 }
+
+const gradient = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+`;
+
+const DashboardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2rem;
+
+  .ButtonStyle {
+    text-decoration: none;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(-45deg, #00bfff, #0080ff, #5cdced, #c246ef);
+    background-size: 400% 400%;
+    animation: ${gradient} 15s ease infinite;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+`;
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-family: "Roboto", sans-serif;
+
+  label {
+    display: flex;
+    flex-direction: column;
+
+    select,
+    input {
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid #dddddd;
+      border-radius: 5px;
+    }
+  }
+
+  th {
+    background-color: #f8f8f8;
+    width: auto;
+    color: #333333;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 5px;
+    text-align: center;
+    border-bottom: 2px solid #dddddd;
+  }
+
+  td {
+    background-color: #ffffff;
+    color: #333333;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    max-width: 200px;
+    text-align: center;
+
+    .takeAction {
+      text-decoration: none;
+      text-align: center;
+      padding: 5px 10px;
+      background: #24df9d;
+      background-size: 400% 400%;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .secondAction {
+      text-decoration: none;
+      text-align: center;
+      padding: 3px 5px;
+      background: #c16ed1;
+      background-size: 400% 400%;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    &:first-child {
+      border-left: 2px solid #dddddd;
+    }
+
+    &:last-child {
+      border-right: 2px solid #dddddd;
+    }
+  }
+`;
+
+const TruncatedComment = styled.span`
+  max-height: 3.6rem; /* Dos líneas con el tamaño de fuente actual */
+  overflow: hidden;
+`;
 
 export { Dashboard };

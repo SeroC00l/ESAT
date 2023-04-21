@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-let today = new Date();
-
 const feelingSchema = new mongoose.Schema({
   name: { type: String, required: true },
   area: { type: String, required: true },
@@ -14,6 +12,7 @@ const feelingSchema = new mongoose.Schema({
   date: {
     type: String,
     default: () => {
+      let today = new Date();
       let fecha = today.toISOString().slice(0, 10);
       return fecha;
     },
@@ -21,12 +20,14 @@ const feelingSchema = new mongoose.Schema({
   time: {
     type: String,
     default: () => {
+      let today = new Date();
       let hora = today.toLocaleTimeString("es-US");
       return hora;
     },
   },
   takeAction: { type: mongoose.Schema.Types.Mixed, default: false },
   actionTaken: { type: String, default: "" },
+  secondAction: { type: mongoose.Schema.Types.Mixed, default: false },
 });
 
 const Feeling = mongoose.model("Feeling", feelingSchema);

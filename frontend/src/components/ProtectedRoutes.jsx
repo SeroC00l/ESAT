@@ -5,7 +5,6 @@ import { Message } from "./Message";
 import { Send } from "./Send";
 import { Resing } from "./Resing";
 import { Dashboard } from "../pages/Dashboard";
-import { Analytics } from "./Analytics";
 import { Context } from "../context/UserContext";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
@@ -30,7 +29,6 @@ function ProtectedRoutes() {
       <Route path="/Feelings/:emotion/resing/message" element={<Message />} />
       <Route path="/Feelings/:emotion/send" element={<Send />} />
       <Route path="/Dashboard" element={<Dashboard />} />
-      <Route path="/Dashboard/Analytics" element={<Analytics />} />
     </Routes>
   );
 }

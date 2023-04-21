@@ -17,6 +17,14 @@ const gradient = keyframes`
   }
 `;
 
+const Tittle = styled.div`
+  margin-top: 50px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 50px;
+  font-weight: bold;
+  padding-bottom: 40px;
+`;
+
 const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -140,6 +148,7 @@ function Login() {
     <div className="login">
       <Header />
       <LoginContainer>
+        <Tittle>ESAT Platform</Tittle>
         <h2>Login</h2>
         <LoginForm>
           <Label>Email</Label>

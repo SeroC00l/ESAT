@@ -9,7 +9,7 @@ import Worried from "../img/Worried.png";
 import Sad from "../img/Sad.png";
 
 const Emoji = styled.img`
-  height: 100px;
+  height: 250px;
 `;
 
 const FeelingsContainer = styled.div`
@@ -44,6 +44,7 @@ const Tittle = styled.div`
     font-family: "Courier New", Courier, monospace;
     font-size: 50px;
     font-weight: bold;
+    text-align: center;
   }
 `;
 

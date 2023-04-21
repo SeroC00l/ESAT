@@ -15,8 +15,10 @@ router.get('/feelings', async (req, res) => {
     }
   });
 router.get('/supervisors', feelingController.getDifferentSupervisors);
+router.get('/export', feelingController.exportTOExcel);
 router.put("/:id", feelingController.updateFeeling);
 router.patch("/:id", feelingController.updateActionTaken);
+router.patch("/second/:id", feelingController.updateSecondAction);
 router.delete("/:id", feelingController.deleteFeeling);
 
 module.exports = router;

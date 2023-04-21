@@ -13,12 +13,12 @@ const Tittle = styled.div`
   text-align: center;
 `;
 
-const ONE_DAY_IN_MS = 86400000; // 24 * 60 * 60 * 1000
-
+const ONE_DAY_IN_MS = 43200000; // 12 * 60 * 60 * 1000
+                  //  86400000;  24 * 60 * 60 * 1000
 function Send() {
   const { feelingData, jwt, resing, setLoggedIn } = useContext(Context);
   const sentimentSentToday = localStorage.getItem("sentimentSentToday");
-  const urlAirtech = "https://airtechone.com";
+  const urlAirtech = "https://airtechcommunications.bitrix24.es/stream/";
 
   useEffect(() => {
     if (!sentimentSentToday) {
@@ -26,9 +26,9 @@ function Send() {
       sendFeelingData(feelingData, jwt);
       localStorage.setItem("sentimentSentToday", Date.now());
       setTimeout(() => {
-        window.location = urlAirtech;
         setLoggedIn(false);
-      }, 5000);
+        window.location = urlAirtech;
+      }, 3000);
     } else {
       // Si hay información en el almacenamiento local, verifique si el usuario ya envió un sentimiento hoy
       const lastSentDate = new Date(Number(sentimentSentToday));

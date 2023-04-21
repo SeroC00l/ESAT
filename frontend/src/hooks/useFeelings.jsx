@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/api";
+const API_URL = "http://192.168.77.10:3000/api";
 
 export const sendFeelingData = async (feelingData, token) => {
   try {

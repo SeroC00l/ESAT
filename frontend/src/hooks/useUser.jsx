@@ -47,7 +47,7 @@ function useUser() {
 
   const login = useCallback(
     (email, password) => {
-      fetch("http://localhost:3000/auth/login", {
+      fetch("http://192.168.77.10:3000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
