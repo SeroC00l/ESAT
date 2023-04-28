@@ -4,6 +4,61 @@ import { useParams, Link } from "react-router-dom";
 import { Header } from "./Header";
 import { Context } from "../context/UserContext";
 
+// This component renders the message input for the user
+function Message() {
+  // getting the emotion from the url
+  const emotion = useParams().emotion;
+  // getting the data from the context
+  const {
+    inputValue,
+    setInputValue,
+    setFeelingData,
+    resing,
+    jobRelated,
+  } = useContext(Context);
+  // function for save the input value
+  const handleInputValueChange = (event) => {
+    setInputValue(event.target.value);
+  };
+  // function for save the data in the context
+  const handleSendClick = () => {
+    setFeelingData((prevData) => ({
+      ...prevData,
+      emotion,
+      resing,
+      jobRelated,
+      message: inputValue,
+    }));
+  };
+  // getting the title depending of the emotion and the job related and resing values
+  const title =
+    // if the user is having this moood bacause of the job and is is thinking on resing
+    jobRelated && resing
+      ? "Why?"
+      // if the user is having this moood bacause of the job and is not is thinking on resing
+      : jobRelated && !resing
+      ? "What do you dislike about your job?"
+      // else
+      : `what makes you feel ${emotion}?`;
+  // This component renders the message input for the user
+  return (
+    <>
+      <Header />
+      <Tittle>{title}</Tittle>
+      <Container>
+      <MessageStyle value={inputValue} onChange={handleInputValueChange} />
+      
+        <Link
+          className="ButtonStyle"
+          onClick={handleSendClick}
+          to={`/Feelings/${emotion}/send`}
+        >
+          send
+        </Link>
+      </Container>
+    </>
+  );
+}
 const gradient = keyframes`
   0% {
     background-position: 0% 50%;
@@ -66,58 +121,5 @@ const MessageStyle = styled.textarea`
     box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.3);
   }
 `;
-
-function Message() {
-  const emotion = useParams().emotion;
-
-  const {
-    jwt,
-    inputValue,
-    setInputValue,
-    feelingData,
-    setFeelingData,
-    resing,
-    jobRelated,
-  } = useContext(Context);
-
-  const handleInputValueChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleSendClick = () => {
-    setFeelingData((prevData) => ({
-      ...prevData,
-      emotion,
-      resing,
-      jobRelated,
-      message: inputValue,
-    }));
-  };
-
-  const title =
-    jobRelated && resing
-      ? "Why?"
-      : jobRelated && !resing
-      ? "What do you dislike about your job?"
-      : `what makes you feel ${emotion}?`;
-
-  return (
-    <>
-      <Header />
-      <Tittle>{title}</Tittle>
-      <Container>
-      <MessageStyle value={inputValue} onChange={handleInputValueChange} />
-      
-        <Link
-          className="ButtonStyle"
-          onClick={handleSendClick}
-          to={`/Feelings/${emotion}/send`}
-        >
-          send
-        </Link>
-      </Container>
-    </>
-  );
-}
 
 export { Message };

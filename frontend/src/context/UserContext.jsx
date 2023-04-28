@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 
+// global context for save the user session and data
+
 const Context = React.createContext({});
 
 function UserContextProvider({ children }) {
+  // state for save the user session
   const [jwt, setJWT] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
+  // state for save the user data
+  const [userName, setUserName] = useState("");
   const [area, setArea] = useState("");
   const [rol, setRol] = useState("");
   const [supervisor, setSupervisor] = useState("");
-  const [error, setError] = useState(null);
-  const [showErrorModal, setShowErrorModal] = useState(false);
   const [jobRelated, setJobRelated] = useState(false);
   const [resing, setResing] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [userName, setUserName] = useState("");
+  // state for error handling
+  const [error, setError] = useState(null);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  // state for save the feeling data
   const [inputValue, setInputValue] = useState("");
   const [feelingData, setFeelingData] = useState({
     name: "",

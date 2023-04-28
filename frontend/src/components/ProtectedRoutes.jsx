@@ -8,18 +8,17 @@ import { Dashboard } from "../pages/Dashboard";
 import { Context } from "../context/UserContext";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
+// This component will protect the routes, the user will not be able to access to the protected routes if is not logged in 
 function ProtectedRoutes() {
+  // getting the logged in value from the context
   const { loggedIn } = useContext(Context);
-  
   const navigate = useNavigate();
-
+  // if the user is not logged in, redirect to the login page
   useEffect(() => {
     if (!loggedIn) {
-      // Si el usuario no ha iniciado sesión, redirigir a la página de inicio de sesión.
       navigate("/Login");
     }
   }, [loggedIn, navigate]);
-
   return (
     <Routes>
       <Route path="/Feelings" element={<Feelings />} />
@@ -32,5 +31,4 @@ function ProtectedRoutes() {
     </Routes>
   );
 }
-
 export { ProtectedRoutes };

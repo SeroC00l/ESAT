@@ -7,53 +7,7 @@ import Angry from "../img/Angry.png";
 import Neutral from "../img/Neutral.png";
 import Worried from "../img/Worried.png";
 import Sad from "../img/Sad.png";
-
-const Emoji = styled.img`
-  height: 250px;
-`;
-
-const FeelingsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: auto;
-  gap: 40px;
-
-  .linkstyle {
-    text-decoration: none;
-  }
-`;
-
-const FeelingStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  span {
-    font-family: "Courier New", Courier, monospace;
-    font-weight: bold;
-    font-size: 20px;
-    color: black;
-  }
-`;
-
-const Tittle = styled.div`
-  margin: 100px 0px;
-
-  h2 {
-    font-family: "Courier New", Courier, monospace;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-  }
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
+// This page shows the feelings options to the user
 function Feelings() {
   return (
     <>
@@ -100,5 +54,44 @@ function Feelings() {
     </>
   );
 }
+// styles
+const Emoji = styled.img`
+  height: 250px;
+`;
+const FeelingsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  gap: 40px;
 
+  .linkstyle {
+    text-decoration: none;
+  }
+`;
+const FeelingStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  span {
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+  }
+`;
+const Tittle = styled.div`
+  margin: 100px 0px;
+  h2 {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+  }
+`;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 export { Feelings };

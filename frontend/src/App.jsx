@@ -1,11 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Login } from "./pages/Login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserContextProvider, Context } from "./context/UserContext";
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
-
 function App() {
-  
   return (
     <UserContextProvider>
       <BrowserRouter>
@@ -17,5 +15,4 @@ function App() {
     </UserContextProvider>
   );
 }
-
 export default App;

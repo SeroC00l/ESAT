@@ -5,6 +5,74 @@ import styled, { keyframes } from "styled-components";
 import { Context } from "../context/UserContext";
 import { useUser } from "../hooks/useUser";
 
+function Login() {
+  // state for login form
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  // getting login function from useUser hook
+  const { login } = useUser();
+  // getting error and showErrorModal from context
+  const { error, showErrorModal, setError, setShowErrorModal, loggedIn } =
+    useContext(Context);
+  // handlers for login form
+  const handleUsernameChange = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(email, password);
+  };
+  // if user is logged in, redirect to Feelings page
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/Feelings");
+    }
+  }, [loggedIn, navigate]);
+  // if error, show modal
+  const handleCloseErrorModal = () => {
+    setShowErrorModal(false);
+    setError(null);
+  };
+
+  return (
+    <div className="login">
+      <Header />
+      <Tittle>ESAT Platform</Tittle>
+      <LoginContainer>
+        <h2>Login</h2>
+        <LoginForm>
+          <Label>Email</Label>
+          <Input type="text" value={email} onChange={handleUsernameChange} />
+          <Label>Password</Label>
+          <Input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <p className="forgot-password">Forgot your password?</p>
+          <Link onClick={handleSubmit}>Login</Link>
+        </LoginForm>
+      </LoginContainer>
+      {error && showErrorModal && (
+        <Modal onClick={handleCloseErrorModal}>
+          <ModalContent onClick={(e) => e.stopPropagation()}>
+            <p>{error}</p>
+            <button className="closeModal" onClick={handleCloseErrorModal}>
+              X
+            </button>
+          </ModalContent>
+        </Modal>
+      )}
+    </div>
+  );
+}
+
+// STYLED COMPONENTS
+
 const gradient = keyframes`
   0% {
     background-position: 0% 50%;
@@ -18,20 +86,24 @@ const gradient = keyframes`
 `;
 
 const Tittle = styled.div`
-  margin-top: 50px;
   font-family: "Courier New", Courier, monospace;
   font-size: 50px;
   font-weight: bold;
-  padding-bottom: 40px;
+  margin: 50px auto;
+  width: max-content;
 `;
 
 const LoginContainer = styled.div`
+  user-select: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  transform: translateY(-20%);
+  width: max-content;
+  margin: 0 auto;
+  padding: 30px;
+  border: 1px solid #3a3434;
+  border-radius: 50px;
 `;
 
 const LoginForm = styled.form`
@@ -39,7 +111,6 @@ const LoginForm = styled.form`
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
-
   a {
     text-decoration: none;
     margin-top: 20px;
@@ -52,6 +123,9 @@ const LoginForm = styled.form`
     border-radius: 5px;
     cursor: pointer;
   }
+  .forgot-password {
+    margin-top: 10px;
+  }
 `;
 
 const Label = styled.label`
@@ -63,6 +137,7 @@ const Input = styled.input`
   padding: 10px;
   border-radius: 5px;
   border: none;
+  box-shadow: 5px #dd0f0f;
   background-color: #f2f2f2;
   width: 250px;
 `;
@@ -111,69 +186,5 @@ const ModalContent = styled.div`
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   }
 `;
-
-function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const { login } = useUser();
-  const { error, showErrorModal, setError, setShowErrorModal, loggedIn } =
-    useContext(Context);
-
-  const handleUsernameChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    login(email, password);
-  };
-
-  useEffect(() => {
-    if (loggedIn) {
-      navigate("/Feelings");
-    }
-  }, [loggedIn, navigate]);
-
-  const handleCloseErrorModal = () => {
-    setShowErrorModal(false);
-    setError(null);
-  };
-
-  return (
-    <div className="login">
-      <Header />
-      <LoginContainer>
-        <Tittle>ESAT Platform</Tittle>
-        <h2>Login</h2>
-        <LoginForm>
-          <Label>Email</Label>
-          <Input type="text" value={email} onChange={handleUsernameChange} />
-          <Label>Password</Label>
-          <Input
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <Link onClick={handleSubmit}>Login</Link>
-        </LoginForm>
-      </LoginContainer>
-      {error && showErrorModal && (
-        <Modal onClick={handleCloseErrorModal}>
-          <ModalContent onClick={(e) => e.stopPropagation()}>
-            <p>{error}</p>
-            <button className="closeModal" onClick={handleCloseErrorModal}>
-              X
-            </button>
-          </ModalContent>
-        </Modal>
-      )}
-    </div>
-  );
-}
 
 export { Login };

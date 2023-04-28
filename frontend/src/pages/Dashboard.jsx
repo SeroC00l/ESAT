@@ -35,7 +35,6 @@ function Dashboard() {
       const response = await axios.get("http://192.168.77.10:3000/api/export", {
         responseType: "blob",
       });
-
       // Crear un objeto URL para descargar el blob como un archivo
       const url = URL.createObjectURL(new Blob([response.data]));
 
@@ -130,38 +129,82 @@ function Dashboard() {
     });
   };
 
-  const filteredFeelings = feelings.filter((feeling) => {
-    let isMatch = true;
+  const filteredFeelings = (() => {
+    if (rol === "RHManager") {
+      const matches = feelings.filter((feeling) => {
+        let isMatch = true;
 
-    if (area !== feeling.area) {
-      isMatch = false;
+        if (filter.date !== "" && filter.date !== feeling.date.toString()) {
+          isMatch = false;
+        }
+
+        if (filter.supervisor && filter.supervisor !== feeling.supervisor) {
+          isMatch = false;
+        }
+
+        if (filter.emotion && filter.emotion !== feeling.emotion) {
+          isMatch = false;
+        }
+
+        if (
+          filter.jobRelated !== "" &&
+          filter.jobRelated !== feeling.jobRelated.toString()
+        ) {
+          isMatch = false;
+        }
+
+        if (
+          filter.resing !== "" &&
+          filter.resing !== feeling.resing.toString()
+        ) {
+          isMatch = false;
+        }
+
+        return isMatch;
+      });
+
+      return matches;
+    } else {
+      const filtered = [];
+      feelings.filter((feeling) => {
+        let isMatch = false;
+
+        if (area === feeling.area) {
+          if (filter.date !== "" && filter.date !== feeling.date.toString()) {
+            isMatch = false;
+          }
+
+          if (filter.supervisor && filter.supervisor !== feeling.supervisor) {
+            isMatch = false;
+          }
+
+          if (filter.emotion && filter.emotion !== feeling.emotion) {
+            isMatch = false;
+          }
+
+          if (
+            filter.jobRelated !== "" &&
+            filter.jobRelated !== feeling.jobRelated.toString()
+          ) {
+            isMatch = false;
+          }
+
+          if (
+            filter.resing !== "" &&
+            filter.resing !== feeling.resing.toString()
+          ) {
+            isMatch = false;
+          }
+
+          if (isMatch) {
+            filtered.push(feeling);
+          }
+        }
+      });
+
+      return filtered;
     }
-
-    if (filter.date !== "" && filter.date !== feeling.date.toString()) {
-      isMatch = false;
-    }
-
-    if (filter.supervisor && filter.supervisor !== feeling.supervisor) {
-      isMatch = false;
-    }
-
-    if (filter.emotion && filter.emotion !== feeling.emotion) {
-      isMatch = false;
-    }
-
-    if (
-      filter.jobRelated !== "" &&
-      filter.jobRelated !== feeling.jobRelated.toString()
-    ) {
-      isMatch = false;
-    }
-
-    if (filter.resing !== "" && filter.resing !== feeling.resing.toString()) {
-      isMatch = false;
-    }
-
-    return isMatch;
-  });
+  })();
 
   function truncateComment(comment) {
     if (comment.length > 200) {
@@ -250,7 +293,7 @@ function Dashboard() {
                   </select>
                 </label>
               </th>
-              {rol === "Manager" && <th>Comment</th>}
+              {rol === "Manager" || ("RHManager" && <th>Comment</th>)}
               <th>
                 <label>
                   Supervisor
@@ -299,13 +342,14 @@ function Dashboard() {
                 <td>{feeling.emotion}</td>
                 <td>{feeling.jobRelated ? "Yes" : "No"}</td>
                 <td>{feeling.resing ? "Yes" : "No"}</td>
-                {rol === "Manager" && (
-                  <td>
-                    <TruncatedComment>
-                      {truncateComment(feeling.message)}
-                    </TruncatedComment>
-                  </td>
-                )}
+                {rol === "Manager" ||
+                  ("RHManager" && (
+                    <td>
+                      <TruncatedComment>
+                        {truncateComment(feeling.message)}
+                      </TruncatedComment>
+                    </td>
+                  ))}
                 <td>{feeling.supervisor}</td>
                 <td>
                   {feeling.date} {feeling.time}
@@ -324,14 +368,15 @@ function Dashboard() {
                   {feeling.takeAction && feeling.actionTaken && (
                     <span>
                       {feeling.takeAction}{" "}
-                      {rol === "Manager" && !feeling.secondAction && (
-                        <button
-                          className="secondAction"
-                          onClick={() => handleSecondAction(feeling._id)}
-                        >
-                          Second Action
-                        </button>
-                      )}
+                      {rol === "Manager" ||
+                        ("RHManager" && !feeling.secondAction && (
+                          <button
+                            className="secondAction"
+                            onClick={() => handleSecondAction(feeling._id)}
+                          >
+                            Second Action
+                          </button>
+                        ))}
                     </span>
                   )}
                 </td>
@@ -382,13 +427,13 @@ function Dashboard() {
             ))}
           </tbody>
         </Table>
-        <div>
+        <div className="Buttons-container">
           {currentPage > 1 && (
             <button
               className="ButtonStyle"
               onClick={() => setCurrentPage(currentPage - 1)}
             >
-              Página anterior
+              Back
             </button>
           )}
           {currentPage < totalPages && (
@@ -396,7 +441,7 @@ function Dashboard() {
               className="ButtonStyle"
               onClick={() => setCurrentPage(currentPage + 1)}
             >
-              Página siguiente
+              Forward
             </button>
           )}
         </div>
@@ -436,6 +481,12 @@ const DashboardContainer = styled.div`
     border: none;
     border-radius: 5px;
     cursor: pointer;
+  }
+
+  .Buttons-container {
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
   }
 `;
 
