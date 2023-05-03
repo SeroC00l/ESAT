@@ -149,19 +149,25 @@ your-project-name/
 ### Pages
   #### Login:
 
-  This component render the login interface and send the requests to the backend
-  
-  - States:
-    - email - Stores the email entered by the user in the login form.
-    - password - Stores the password entered by the user in the login form.
-    - error, showErrorModal, setError, setShowErrorModal, loggedIn - These are values and functions obtained from the UserContext. They manage error messages and the user's logged-in status.  
-  
-  - Functions:
-    - handleUsernameChange - Handles changes in the email input field and updates the email state.
-    - handlePasswordChange - Handles changes in the password input field and updates the password state.
-    - handleSubmit - Submits the login form by calling the login function from the useUser hook with the entered email and password.
-    - handleCloseErrorModal - Closes the error modal and clears the error state.
-    - handleKeyPress - Detects when the user presses the "Enter" key and submits the login form.
+    This component render the login interface and send the requests to the backend
+
+    - States:
+      - email - Stores the email entered by the user in the login form.
+      - password - Stores the password entered by the user in the login form.
+      - error, showErrorModal, setError, setShowErrorModal, loggedIn - These are values and functions obtained from the UserContext. They manage error messages and the user's logged-in status.  
+
+    - Functions:
+      - handleUsernameChange - Handles changes in the email input field and updates the email state.
+      - handlePasswordChange - Handles changes in the password input field and updates the password state.
+      - handleSubmit - Submits the login form by calling the login function from the useUser hook with the entered email and password.
+      - handleCloseErrorModal - Closes the error modal and clears the error state.
+      - handleKeyPress - Detects when the user presses the "Enter" key and submits the login form.
+
+    - Effects:
+      -The useEffect hook checks if the user is logged in. If so, it navigates to the "/Feelings" page.
+    
+   #### Feelings:
+   
 
 ## 6. Backend Features (Node.js)
 Description of the backend features and how they interact with the React application.
