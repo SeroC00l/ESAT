@@ -152,7 +152,7 @@ Ensure that you have the following installed on your system:
 
     This component render the login interface and send the requests to the backend
 
-    - States:
+    - State:
       - email - Stores the email entered by the user in the login form.
       - password - Stores the password entered by the user in the login form.
       - error, showErrorModal, setError, setShowErrorModal, loggedIn - These are values and functions obtained from the UserContext. They manage error messages and the user's logged-in status.  
@@ -180,9 +180,183 @@ Ensure that you have the following installed on your system:
      - Navigation:
       -Each feeling has a Link component that navigates to the corresponding feelings page (e.g., "/Feelings/Happy/") when clicked.
       This page does not have any states, functions, or effects. It simply displays the available feelings and provides navigation links to the corresponding feelings pages.
+      
+   #### Dashboard:
    
+      This component renders the dashboard interface where users can view and manage feelings reported by employees.
+
+      -State:
+       - feelings: An array of feelings fetched from the API.
+       - supervisors: An array of supervisors.
+       - userName, rol, area: User context data.
+       - isEditingActionTaken: A boolean indicating if the action taken is being edited.
+       - selectedFeelingId: The ID of the selected feeling.
+       - actionTakenText: The text of the action taken.
+       - isEditingSecondAction: A boolean indicating if the second action is being edited.
+       - secondAction: The text of the second action.
+       - currentPage: The current page number for pagination.
+       - feelingsPerPage: The number of feelings displayed per page.
+       - filter: An object containing filter criteria for feelings.
+       
+      - Effects:
+       - Fetch feelings data from the API when the component is mounted or actionTakenText changes.
+       - Fetch unique supervisors when the component is mounted.
+       
+      - Functions:
+       - handleSaveActionTaken: Handles saving action taken for a specific feeling.
+       - handleSaveSecondAction: Handles saving the second action for a specific feeling.
+       - handleFilterChange: Updates the filter state based on user input.
+       - truncateComment: Truncates long comments for better display.
+       - handleSelectFeeling: Sets the selectedFeelingId state.
+       - handleTakeAction: Opens the action taken editor for the selected feeling.
+       - handleSecondAction: Opens the second action editor for the selected feeling.
+      
+      - Components:
+       - Header: Displays the header at the top of the page.
+       - DashboardContainer: Holds the main content of the dashboard.
+       - Table: Displays the feelings data in a table format.
+       - TruncatedComment: A styled component for displaying truncated comments.
+       - Pagination buttons: Allows the user to navigate between pages.
+      
+      This page is mainly for managing and filtering feelings reported by employees. Users can edit and save actions taken for a specific feeling and apply various filters to the feelings data. Pagination is also implemented for better data display and management.
    
-   
+#### Components
+
+  ####Feeling:
+  
+     This component renders the emotion-based questions interface depending on the user's selected emotion.
+
+     - Components:
+      - Header - Displays the header at the top of the page.
+      - Tittle - Contains the title with the appropriate question based on the selected emotion.
+      - QuestionsContainer - Holds the content depending on the user's emotion.
+      - Buttons - Contains the "Yes" and "No" buttons for emotions "Sad", "Angry", and "Worried".
+      - Message - Input field for user feedback when the emotion is "Neutral".
+      - FeelingStyle (Link) - Contains the navigation links styled as buttons.
+      
+     - States & Functions:
+      - emotion - The user's selected emotion retrieved from the URL using useParams.
+      - Context - Accesses the context to retrieve and manipulate data.
+      - questions - An object containing specific questions for each emotion.
+      - handleInputValueChange - Saves the input value to the state of inputValue.
+      - handleSendClick - Saves the data to the context.
+      
+     - Navigation:
+      - The component renders questions and navigation options based on the user's selected emotion.
+      - If the emotion is "Sad", "Angry", or "Worried", the component displays "Yes" and "No" buttons that navigate to different routes based on the user's response.
+      - If the emotion is "Happy" or "Neutral", the component displays a "Send" button that navigates to the corresponding route (e.g., "/Feelings/Happy/send") when clicked.
+      
+     This component uses React Hooks and the Context API to access and manipulate data. It also uses Link components from react-router-dom for navigation between different views based on the user's emotion and responses.
+
+  ####Header:
+  
+     This component renders the header of the application, displaying a logo and conditional navigation links depending on the user's role and location.
+     
+     - Components:
+      - HeaderContainer - A styled-component containing the header's styles and animations.
+      - Logo - A styled-component for displaying the logo image.
+     
+     - States & Functions:
+      - Context - Accesses the context to retrieve and manipulate data.
+      - location - The current location of the user retrieved using the useLocation hook from react-router-dom.
+      - showDashboardLink - Determines whether to display the "Dashboard" link based on the user's logged-in status, role, and location.
+      - showLogoutLink - Determines whether to display the "Logout" link based on the user's logged-in status and location.
+      - handleLogout - A function that sets the loggedIn state to false.
+     
+     - Navigation:
+      - If the showDashboardLink condition is true, the component renders a "Dashboard" link that navigates to "/Dashboard" when clicked.
+      - If the showLogoutLink condition is true, the component renders a "Logout" link that navigates to "/Login" when clicked and logs out the user by calling the handleLogout function.
+     
+     This component uses React Hooks and the Context API to access and manipulate data. It also uses Link components from react-router-dom for conditional navigation between different views based on the user's role and location. The header's styling and animation are defined using styled-components and keyframes.
+
+  ####Message:
+  
+    This component renders a message input for the user to provide additional details about their feeling, based on their selected emotion, job-related status, and resignation intent.
+
+    - Components:
+     - Header - Displays the header at the top of the page.
+     - Tittle - Contains a dynamic title that changes depending on the user's emotion, job-related status, and resignation intent.
+     - Container - Holds the input area and the "send" button.
+     - MessageStyle - A styled-component for the textarea input where the user can type their message.
+     
+    - States & Functions:
+     - Context - Accesses the context to retrieve and manipulate data.
+     - emotion - Retrieves the selected emotion from the URL using the useParams hook from react-router-dom.
+     - handleInputValueChange - A function to update the inputValue state as the user types in the input area.
+     - handleSendClick - A function to save the user's input data in the context when the "send" button is clicked.
+     
+    - Navigation:
+     - The "send" button has a Link component that navigates to /Feelings/${emotion}/send when clicked.
+    
+    This component uses React Hooks, the Context API, and react-router-dom to access and manipulate data. The styled-components library is used to style the input area, title, and send button. The component's behavior depends on the selected emotion and user inputs.
+    
+ #### ProtectedRoutes:
+
+    This component is responsible for protecting the routes of the application. It ensures that only logged-in users can access the protected routes.
+
+    - Components:
+      - Feelings - The feelings selection page.
+      - Feeling - The individual feeling page based on the selected emotion.
+      - Message - The message input component.
+      - Send - The component that handles sending the data.
+      - Resing - The component that handles resignation-related questions.
+      - Dashboard - The dashboard page.
+
+    - States & Functions:
+      - Context - Accesses the context to retrieve the loggedIn status.
+      - loggedIn - Retrieves the logged-in status from the context.
+      - useEffect - React Hook to handle side effects when loggedIn status changes.
+      - useNavigate - Hook from react-router-dom for programmatically navigating to a specific route.
+
+    - Routes:
+      - The ProtectedRoutes component wraps the Routes component from react-router-dom, providing route protection based on the loggedIn status. If the user is not logged in, they are redirected to the /Login route.
+
+    This component uses React Hooks, the Context API, and react-router-dom to access the loggedIn status and handle route protection.
+
+#### Resing:
+
+    This component is rendered when the user's mood is related to their job, and asks if the user is considering resigning.
+
+    - Components:
+      - Header - Displays the header at the top of the page.
+      - Tittle - Contains the title "Are you thinking on resigning?".
+      - Container - Holds the "Yes" and "No" buttons.
+      - Buttons - Contains the "Yes" and "No" buttons.
+
+    - States & Functions:
+      - Context - Accesses the context to retrieve and manipulate data.
+      - emotion - Retrieves the selected emotion from the URL using the useParams hook from react-router-dom.
+      - handleSendClick - A function to save the user's resignation intent in the context.
+      - setResing - A function to update the resignation intent in the context.
+
+    - Navigation:
+      - The "Yes" and "No" buttons have Link components that navigate to `/Feelings/${emotion}/resing/message` when clicked.
+
+    This component uses React Hooks, the Context API, and react-router-dom to access and manipulate data. The styled-components library is used to style the title and buttons. The component's behavior depends on the selected emotion and user inputs.
+
+#### Send:
+
+    This component thanks the user for their feedback and sends the collected data to the backend. The component also handles restrictions for submitting data once per day.
+
+    - Components:
+      - Header - Displays the header at the top of the page.
+      - Tittle - Contains the title "Thanks for your Feedback 😊".
+
+    - States & Functions:
+      - Context - Accesses the context to retrieve and manipulate data.
+      - jwt - Retrieves the JSON Web Token from the context.
+      - feelingData - Retrieves the user's feeling data from the context.
+      - sentimentSentToday - Retrieves the "sentimentSentToday" item from local storage.
+      - sendFeelingData - A custom hook to send the user's feeling data to the backend.
+      - setLoggedIn - A function to update the loggedIn state in the context.
+
+    - Behavior:
+      - The component checks if the user has already submitted a response today by comparing the current date with the last sent date stored in local storage.
+      - If the user has not submitted a response today, their feeling data is sent to the backend and the last sent date is updated in local storage.
+      - If the user has already submitted a response today, they are alerted and redirected to the Airtech page.
+      - After successfully sending the data or if the user has already submitted a response today, the user is redirected to the Airtech page after 3 seconds.
+
+    This component uses React Hooks, the Context API, and a custom hook (useFeelings) to send the data to the backend. The styled-components library is used to style the title. The component's behavior depends on the selected emotion, user inputs, and restrictions for submitting data once per day.
 
 ## 6. Backend Features (Node.js)
 Description of the backend features and how they interact with the React application.
