@@ -37,7 +37,11 @@ function Login() {
     setShowErrorModal(false);
     setError(null);
   };
-
+  function handleKeyPress(e) {
+    if (e.charCode === 13) {
+      handleSubmit(e);
+    }
+  }
   return (
     <div className="login">
       <Header />
@@ -52,8 +56,9 @@ function Login() {
             type="password"
             value={password}
             onChange={handlePasswordChange}
+            onKeyPress={handleKeyPress}
           />
-          <p className="forgot-password">Forgot your password?</p>
+          <p className="forgot-password">Password Reset</p>
           <Link onClick={handleSubmit}>Login</Link>
         </LoginForm>
       </LoginContainer>

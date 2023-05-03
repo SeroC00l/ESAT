@@ -165,44 +165,36 @@ function Dashboard() {
 
       return matches;
     } else {
-      const filtered = [];
-      feelings.filter((feeling) => {
-        let isMatch = false;
+    return feelings.filter((feeling) => {
+      if (area !== feeling.area) {
+        return false;
+      }
 
-        if (area === feeling.area) {
-          if (filter.date !== "" && filter.date !== feeling.date.toString()) {
-            isMatch = false;
-          }
+      if (filter.date !== "" && filter.date !== feeling.date.toString()) {
+        return false;
+      }
 
-          if (filter.supervisor && filter.supervisor !== feeling.supervisor) {
-            isMatch = false;
-          }
+      if (filter.supervisor && filter.supervisor !== feeling.supervisor) {
+        return false;
+      }
 
-          if (filter.emotion && filter.emotion !== feeling.emotion) {
-            isMatch = false;
-          }
+      if (filter.emotion && filter.emotion !== feeling.emotion) {
+        return false;
+      }
 
-          if (
-            filter.jobRelated !== "" &&
-            filter.jobRelated !== feeling.jobRelated.toString()
-          ) {
-            isMatch = false;
-          }
+      if (
+        filter.jobRelated !== "" &&
+        filter.jobRelated !== feeling.jobRelated.toString()
+      ) {
+        return false;
+      }
 
-          if (
-            filter.resing !== "" &&
-            filter.resing !== feeling.resing.toString()
-          ) {
-            isMatch = false;
-          }
+      if (filter.resing !== "" && filter.resing !== feeling.resing.toString()) {
+        return false;
+      }
 
-          if (isMatch) {
-            filtered.push(feeling);
-          }
-        }
-      });
-
-      return filtered;
+      return true;
+    });
     }
   })();
 
@@ -293,7 +285,7 @@ function Dashboard() {
                   </select>
                 </label>
               </th>
-              {rol === "Manager" || ("RHManager" && <th>Comment</th>)}
+              {((rol === "Manager") || (rol === "RHManager")) && <th>Comment</th>}
               <th>
                 <label>
                   Supervisor
@@ -342,14 +334,13 @@ function Dashboard() {
                 <td>{feeling.emotion}</td>
                 <td>{feeling.jobRelated ? "Yes" : "No"}</td>
                 <td>{feeling.resing ? "Yes" : "No"}</td>
-                {rol === "Manager" ||
-                  ("RHManager" && (
+                {((rol === "Manager") || (rol === "RHManager")) && 
                     <td>
                       <TruncatedComment>
                         {truncateComment(feeling.message)}
                       </TruncatedComment>
                     </td>
-                  ))}
+                  }
                 <td>{feeling.supervisor}</td>
                 <td>
                   {feeling.date} {feeling.time}
@@ -368,15 +359,14 @@ function Dashboard() {
                   {feeling.takeAction && feeling.actionTaken && (
                     <span>
                       {feeling.takeAction}{" "}
-                      {rol === "Manager" ||
-                        ("RHManager" && !feeling.secondAction && (
+                      {((rol === "Manager") || (rol === "RHManager")) && !feeling.secondAction && (
                           <button
                             className="secondAction"
                             onClick={() => handleSecondAction(feeling._id)}
                           >
                             Second Action
                           </button>
-                        ))}
+                        )}
                     </span>
                   )}
                 </td>
