@@ -168,6 +168,20 @@ Ensure that you have the following installed on your system:
     
    #### Feelings:
    
+    This component renders the feelings selection interface, allowing users to choose their current emotion.
+
+    - Components:
+      - Header - Displays the header at the top of the page.
+      - Tittle - Contains the title "How Are You Feeling Today?".
+      - FeelingsContainer - Holds the available feelings for users to choose from.
+      - FeelingStyle - Contains the individual feeling emoji and its corresponding label.
+      
+     - Navigation:
+      -Each feeling has a Link component that navigates to the corresponding feelings page (e.g., "/Feelings/Happy/") when clicked.
+      This page does not have any states, functions, or effects. It simply displays the available feelings and provides navigation links to the corresponding feelings pages.
+   
+   
+   
 
 ## 6. Backend Features (Node.js)
 Description of the backend features and how they interact with the React application.
