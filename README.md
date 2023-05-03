@@ -46,7 +46,7 @@ Ensure that you have the following installed on your system:
 - git (https://git-scm.com)
 - mongodb (https://www.mongodb.com)
 
-# Frontend
+### Frontend
 
 1. Clone the repository to your local machine:
   - `git clone https://github.com/SeroC00l/ESAT`
