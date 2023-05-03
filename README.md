@@ -134,7 +134,7 @@ your-project-name/
 - `mailer.js` - Contains de code to send the reset password mails
 - `index.js` - The main entry point for your backend application, where the Express app is configured and started.
 
-###3 Frontend
+### Frontend
 
 - `components/` -  Contains reusable React components used throughout the application.
 - `context/`  - Contains the context files for managing global state using React Context API. This folder is used to store and share data across different components in the application without having to pass it down through props.
@@ -147,7 +147,7 @@ your-project-name/
 ## 5. React Components
 
 ### Pages
-  - Login:
+  #### Login:
 
   This component render the login interface and send the requests to the backend
   
