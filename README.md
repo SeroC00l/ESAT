@@ -31,10 +31,10 @@ Frontend Dependencies:
 
 Backend Dependencies:
 
-"cors": "^2.8.5"
-"express": "^4.18.2"
-"jsonwebtoken": "^9.0.0"
-"mongoose": "^7.0.2" 
+- "cors": "^2.8.5"
+- "express": "^4.18.2"
+- "jsonwebtoken": "^9.0.0"
+- "mongoose": "^7.0.2" 
 
 ## 3. Installation
 
@@ -85,7 +85,43 @@ The frontend should now be running on http://localhost:5173 (or another availabl
  The backend should now be runung on http://localhost:3000
 
 ## 4. Project Structure
-Explain the organization of folders and files in your project, as well as their purpose.
+
+your-project-name/
+│
+├── backend/
+│   ├── src/
+|   |   ├── controllers/
+|   |   ├── database/
+|   |   ├── middlewares/
+|   |   ├── models/
+|   |   ├── routes/
+|   |   ├── mailer.js
+|   |   └── index.js
+|   ├── .gitignore
+|   ├── package.json
+|   └── package-lock.json
+│
+├── frontend/
+|   ├── src/
+|   │   ├── components/
+|   │   ├── context/
+|   │   ├── hooks/
+|   │   ├── img/
+|   │   ├── pages/
+|   │   ├── App.jsx
+|   │   ├── index.css
+|   │   └── main.js
+|   ├── .gitignore
+|   ├── index.html
+|   ├── package-lock.json
+|   ├── package.json
+|   └── vite.config.js
+|
+└── README.md  
+
+# Backend
+
+- `controllers/` - Contains the controller files responsible for handling incoming HTTP  
 
 ## 5. React Components
 Description of the React components used in the project. For each component, include the following:
