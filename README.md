@@ -10,9 +10,8 @@ Employee Satisfaction Software measures the level of satisfaction employees have
 5. React Components
 6. Backend Features (Node.js)
 7. REST API
-8. Testing
-9. Deployment
-10. License
+8. Deployment
+9. License
 
 ## 1. Introduction
 
@@ -453,13 +452,94 @@ The REST API is used to communicate between the frontend and the backend of the 
 
 These API routes are used by the frontend to interact with the backend, allowing the application to create, read, update, and delete feeling records, as well as authenticate users and retrieve user information.
 
-## 8. Testing
-Explain how the components and features of your project are tested. Include information about the testing tools used and how to run the tests.
+## 8. Deployment
 
-## 9. Deployment
 Provide detailed instructions on how to deploy your project in a production environment. If you use any specific service, include information on how to set it up.
 
-## 10. License
+For deploying this application, we will use a Linux server (Ubuntu Server). The frontend will be served using Nginx after running `npm run build` to generate the static files, and MongoDB will be installed and set up as a service for the database. Finally, the backend will be managed using PM2 and configured to start on boot.
+
+Follow these steps to deploy your application:
+
+### 1. Set up the server
+
+First, set up an Ubuntu Server. You can use a virtual machine or a cloud service provider like AWS, Google Cloud, or DigitalOcean.
+
+### 2. Install Node.js and MongoDB
+
+On your Ubuntu Server, install Node.js and MongoDB by running the following commands:
+
+```bash
+# Update packages
+sudo apt update
+
+# Install Node.js
+sudo apt install -y nodejs npm
+
+# Install MongoDB
+sudo apt install -y mongodb
+```
+
+### 3. Configure MongoDB
+
+To enable and start MongoDB as a service, run the following commands:
+
+```bash
+sudo systemctl enable mongod
+sudo systemctl start mongod
+```
+
+Edit the MongoDB configuration file `/etc/mongod.conf` to set up the IP address. You can use `nano` or any other text editor:
+
+```bash
+sudo nano /etc/mongod.conf
+```
+
+Find the `bindIp` option and set it to the desired IP address.
+
+### 4. Install and configure Nginx
+
+Install Nginx by running the following command:
+
+```bash
+sudo apt install -y nginx
+```
+
+After building your frontend with `npm run build`, copy the generated `build` folder to the Nginx default root directory:
+
+```bash
+sudo cp -r /path/to/your/frontend/build/* /var/www/html/
+```
+
+### 5. Install PM2
+
+Install PM2 globally using npm:
+
+```bash
+sudo npm install -g pm2
+```
+
+### 6. Start the backend application with PM2
+
+Navigate to your backend directory and start your backend application using PM2:
+
+```bash
+cd /path/to/your/backend
+pm2 start app.js --name your-app-name
+```
+
+### 7. Configure PM2 to start on boot
+
+To ensure that your backend application starts automatically when the server boots, run the following command:
+
+```bash
+pm2 startup
+```
+
+Then, follow the instructions given by the command to enable PM2 to start on boot.
+
+Your application is now deployed and running on your Ubuntu Server.
+
+## 19 License
 State the license under which your project is distributed.
 
 Don't forget to review and adapt this outline to your project's specific needs. It's also helpful to add code examples and screenshots where appropriate, to illustrate how your application works.
