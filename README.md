@@ -569,5 +569,3 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-Remember to replace `[year]` with the current year and `[full name]` with your name or your organization's name.
-
