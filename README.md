@@ -22,12 +22,12 @@ Introduction: Employee Satisfaction Software measures the level of satisfaction 
 
 Frontend Dependencies:
 
-"axios": "^1.3.4"
-"react": "^18.2.0"
-"react-dom": "^18.2.0"
-"react-router-dom": "^6.8.2"
-"styled": "^1.0.0"
-"styled-components": "^5.3.8"
+- "axios": "^1.3.4"
+- "react": "^18.2.0"
+- "react-dom": "^18.2.0"
+- "react-router-dom": "^6.8.2"
+- "styled": "^1.0.0"
+- "styled-components": "^5.3.8"
 
 Backend Dependencies:
 
