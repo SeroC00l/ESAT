@@ -1,6 +1,5 @@
-Project Name
+## ESAT Software
 
-ESAT Software
 Employee Satisfaction Software measures the level of satisfaction employees have with their work and helps to receive feedback in a friendly manner.
 
 ## Table of Contents
