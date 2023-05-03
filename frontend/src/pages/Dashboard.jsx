@@ -25,35 +25,6 @@ function Dashboard() {
     emotion: "",
     date: "",
   });
-  //const [loading, setLoading] = useState(false);
-
-  /*const handleExport = async () => {
-    setLoading(true);
-
-    try {
-      // Hacer una solicitud GET a la ruta de la API utilizando axios
-      const response = await axios.get("http://192.168.77.10:3000/api/export", {
-        responseType: "blob",
-      });
-      // Crear un objeto URL para descargar el blob como un archivo
-      const url = URL.createObjectURL(new Blob([response.data]));
-
-      // Crear un enlace de descarga y hacer clic en él para descargar el archivo
-      const downloadLink = document.createElement("a");
-      downloadLink.href = url;
-      downloadLink.download = "exportacion.xlsx";
-      downloadLink.click();
-
-      // Limpiar el objeto URL
-      URL.revokeObjectURL(url);
-
-      setLoading(false);
-    } catch (err) {
-      console.error("Error al exportar la hoja de cálculo", err);
-      alert("Error al exportar la hoja de cálculo");
-      setLoading(false);
-    }
-  };*/
 
   useEffect(() => {
     axios
