@@ -89,40 +89,40 @@ Ensure that you have the following installed on your system:
 
 ## 4. Project Structure
 
-your-project-name/
-│
-├── backend/
-│   ├── src/
-|   |   ├── controllers/
-|   |   ├── database/
-|   |   ├── middlewares/
-|   |   ├── models/
-|   |   ├── routes/
-|   |   ├── mailer.js
-|   |   └── index.js
-|   |
-|   ├── .gitignore
-|   ├── package.json
-|   └── package-lock.json
-│
-├── frontend/
-|   ├── src/
-|   │   ├── components/
-|   │   ├── context/
-|   │   ├── hooks/
-|   │   ├── img/
-|   │   ├── pages/
-|   │   ├── App.jsx
-|   │   ├── index.css
-|   │   └── main.js
-|   |
-|   ├── .gitignore
-|   ├── index.html
-|   ├── package-lock.json
-|   ├── package.json
-|   └── vite.config.js
-|
-└── README.md  
+    your-project-name/
+    │
+    ├── backend/
+    │   ├── src/
+    |   |   ├── controllers/
+    |   |   ├── database/
+    |   |   ├── middlewares/
+    |   |   ├── models/
+    |   |   ├── routes/
+    |   |   ├── mailer.js
+    |   |   └── index.js
+    |   |
+    |   ├── .gitignore
+    |   ├── package.json
+    |   └── package-lock.json
+    │
+    ├── frontend/
+    |   ├── src/
+    |   │   ├── components/
+    |   │   ├── context/
+    |   │   ├── hooks/
+    |   │   ├── img/
+    |   │   ├── pages/
+    |   │   ├── App.jsx
+    |   │   ├── index.css
+    |   │   └── main.js
+    |   |
+    |   ├── .gitignore
+    |   ├── index.html
+    |   ├── package-lock.json
+    |   ├── package.json
+    |   └── vite.config.js
+    |
+    └── README.md  
 
 ### Backend
 
