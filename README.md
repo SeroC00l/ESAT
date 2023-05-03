@@ -335,27 +335,29 @@ Ensure that you have the following installed on your system:
 
 #### Send:
 
-    This component thanks the user for their feedback and sends the collected data to the backend. The component also handles restrictions for submitting data once per day.
+```
+This component thanks the user for their feedback and sends the collected data to the backend. The component also handles restrictions for submitting data once per day.
 
-    - Components:
-      - Header - Displays the header at the top of the page.
-      - Tittle - Contains the title "Thanks for your Feedback 😊".
+  - Components:
+    - Header - Displays the header at the top of the page.
+    - Tittle - Contains the title "Thanks for your Feedback 😊".
 
-    - States & Functions:
-      - Context - Accesses the context to retrieve and manipulate data.
-      - jwt - Retrieves the JSON Web Token from the context.
-      - feelingData - Retrieves the user's feeling data from the context.
-      - sentimentSentToday - Retrieves the "sentimentSentToday" item from local storage.
-      - sendFeelingData - A custom hook to send the user's feeling data to the backend.
-      - setLoggedIn - A function to update the loggedIn state in the context.
+  - States & Functions:
+    - Context - Accesses the context to retrieve and manipulate data.
+    - jwt - Retrieves the JSON Web Token from the context.
+    - feelingData - Retrieves the user's feeling data from the context.
+    - sentimentSentToday - Retrieves the "sentimentSentToday" item from local storage.
+    - sendFeelingData - A custom hook to send the user's feeling data to the backend.
+    - setLoggedIn - A function to update the loggedIn state in the context.
 
-    - Behavior:
-      - The component checks if the user has already submitted a response today by comparing the current date with the last sent date stored in local storage.
-      - If the user has not submitted a response today, their feeling data is sent to the backend and the last sent date is updated in local storage.
-      - If the user has already submitted a response today, they are alerted and redirected to the Airtech page.
-      - After successfully sending the data or if the user has already submitted a response today, the user is redirected to the Airtech page after 3 seconds.
+  - Behavior:
+    - The component checks if the user has already submitted a response today by comparing the current date with the last sent date stored in local storage.
+    - If the user has not submitted a response today, their feeling data is sent to the backend and the last sent date is updated in local storage.
+    - If the user has already submitted a response today, they are alerted and redirected to the Airtech page.
+    - After successfully sending the data or if the user has already submitted a response today, the user is redirected to the Airtech page after 3 seconds.
 
-    This component uses React Hooks, the Context API, and a custom hook (useFeelings) to send the data to the backend. The styled-components library is used to style the title. The component's behavior depends on the selected emotion, user inputs, and restrictions for submitting data once per day.
+  This component uses React Hooks, the Context API, and a custom hook (useFeelings) to send the data to the backend. The styled-components library is used to style the title. The component's behavior depends on the selected emotion, user inputs, and restrictions for submitting data once per day.
+  ```
 
 ## 6. Backend Features (Node.js)
 
