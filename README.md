@@ -60,7 +60,7 @@ Ensure that you have the following installed on your system:
 4. Start the development server:
   - `npm run dev`
 
-* The frontend should now be running on http://localhost:5173 (or another available port). 
+*The frontend should now be running on http://localhost:5173 (or another available port). 
  
 # Data Base
 
@@ -72,7 +72,7 @@ Ensure that you have the following installed on your system:
 
  *The database should now be runung on mongodb://localhost:27017
  
- * you can also install mongoDB Compass to manage your database on the visual way
+ *You can also install mongoDB Compass to manage your database on the visual way
 
 # Backend
 
@@ -130,6 +130,19 @@ your-project-name/
 - `database/`  - Contains the databbase conection
 - `middlewares/` - Contains middleware functions that are executed before the request is passed to the controller.
 - `models/` - Contains Mongoose schema definitions and models for interacting with the MongoDB database
+- `routes/` - Contains Express route definitions that map URLs to controller functions.
+- `mailer.js` - Contains de code to send the reset password mails
+- `index.js` - The main entry point for your backend application, where the Express app is configured and started.
+
+# Frontend
+
+- `components/` -  Contains reusable React components used throughout the application.
+- `context/`  - Contains the context files for managing global state using React Context API. This folder is used to store and share data across different components in the application without having to pass it down through props.
+- `hooks/`  - Contains custom React hooks used throughout the application. These hooks encapsulate reusable logic and functionality, allowing you to easily share stateful logic between different components without repeating code.
+- `img/` - Contains the images used in the home page of the aplication.
+- `pages/` - Contains the main page components that represent different views in the application. 
+- `App.jsx` - The main application component that defines the structure and layout of the React app.
+- `index.html` -  The main HTML file that serves as the entry point for the frontend application. It contains the root element where the React application will be rendered, and it may also include references to external stylesheets, scripts, or other resources required for the app. This file is usually kept minimal, as most of the application's content and logic are implemented within React components.
 
 ## 5. React Components
 Description of the React components used in the project. For each component, include the following:
