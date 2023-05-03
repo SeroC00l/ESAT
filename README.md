@@ -62,7 +62,7 @@ Ensure that you have the following installed on your system:
 
 *The frontend should now be running on http://localhost:5173 (or another available port). 
  
-# Data Base
+### Data Base
 
 1. Esure you have mongodb installed in your machine:
   - `mongod --version`
@@ -74,7 +74,7 @@ Ensure that you have the following installed on your system:
  
  *You can also install mongoDB Compass to manage your database on the visual way
 
-# Backend
+### Backend
 
 1. Navigate to the backend directory within the project:
  - `cd your-project-name/backend`
@@ -124,7 +124,7 @@ your-project-name/
 |
 └── README.md  
 
-# Backend
+### Backend
 
 - `controllers/` - Contains the controller files responsible for handling incoming HTTP
 - `database/`  - Contains the databbase conection
@@ -134,7 +134,7 @@ your-project-name/
 - `mailer.js` - Contains de code to send the reset password mails
 - `index.js` - The main entry point for your backend application, where the Express app is configured and started.
 
-# Frontend
+###3 Frontend
 
 - `components/` -  Contains reusable React components used throughout the application.
 - `context/`  - Contains the context files for managing global state using React Context API. This folder is used to store and share data across different components in the application without having to pass it down through props.
@@ -145,13 +145,23 @@ your-project-name/
 - `index.html` -  The main HTML file that serves as the entry point for the frontend application. It contains the root element where the React application will be rendered, and it may also include references to external stylesheets, scripts, or other resources required for the app. This file is usually kept minimal, as most of the application's content and logic are implemented within React components.
 
 ## 5. React Components
-Description of the React components used in the project. For each component, include the following:
 
-- Component name
-- Purpose
-- Props (if applicable)
-- State (if applicable)
-- Functions and events (if applicable)
+### Pages
+  - Login:
+
+  This component render the login interface and send the requests to the backend
+  
+  - States:
+    - email - Stores the email entered by the user in the login form.
+    - password - Stores the password entered by the user in the login form.
+    - error, showErrorModal, setError, setShowErrorModal, loggedIn - These are values and functions obtained from the UserContext. They manage error messages and the user's logged-in status.  
+  
+  - Functions:
+    - handleUsernameChange - Handles changes in the email input field and updates the email state.
+    - handlePasswordChange - Handles changes in the password input field and updates the password state.
+    - handleSubmit - Submits the login form by calling the login function from the useUser hook with the entered email and password.
+    - handleCloseErrorModal - Closes the error modal and clears the error state.
+    - handleKeyPress - Detects when the user presses the "Enter" key and submits the login form.
 
 ## 6. Backend Features (Node.js)
 Description of the backend features and how they interact with the React application.
