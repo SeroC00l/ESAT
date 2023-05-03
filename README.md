@@ -86,7 +86,7 @@ The frontend should now be running on http://localhost:5173 (or another availabl
 
 ## 4. Project Structure
 
-`your-project-name/
+your-project-name/
 │
 ├── backend/
 │   ├── src/
@@ -97,6 +97,7 @@ The frontend should now be running on http://localhost:5173 (or another availabl
 |   |   ├── routes/
 |   |   ├── mailer.js
 |   |   └── index.js
+|   |
 |   ├── .gitignore
 |   ├── package.json
 |   └── package-lock.json
@@ -111,13 +112,14 @@ The frontend should now be running on http://localhost:5173 (or another availabl
 |   │   ├── App.jsx
 |   │   ├── index.css
 |   │   └── main.js
+|   |
 |   ├── .gitignore
 |   ├── index.html
 |   ├── package-lock.json
 |   ├── package.json
 |   └── vite.config.js
 |
-└── README.md`  
+└── README.md  
 
 # Backend
 
