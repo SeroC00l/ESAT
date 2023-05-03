@@ -59,7 +59,8 @@ Ensure that you have the following installed on your system:
 
 4. Start the development server:
   - `npm run dev`
-The frontend should now be running on http://localhost:5173 (or another available port). 
+
+* The frontend should now be running on http://localhost:5173 (or another available port). 
  
 # Data Base
 
@@ -68,7 +69,8 @@ The frontend should now be running on http://localhost:5173 (or another availabl
 
 2. Start the data base on your machine:
   - `mongod`
- The database should now be runung on mongodb://localhost:27017
+
+ *The database should now be runung on mongodb://localhost:27017
  
  * you can also install mongoDB Compass to manage your database on the visual way
 
@@ -82,7 +84,8 @@ The frontend should now be running on http://localhost:5173 (or another availabl
  
 3. Start the backend server:
   - `npm run dev`
- The backend should now be runung on http://localhost:3000
+
+*The backend should now be runung on http://localhost:3000
 
 ## 4. Project Structure
 
