@@ -148,7 +148,7 @@ Ensure that you have the following installed on your system:
 
 ### Pages
 
-    #### Login:
+   #### Login:
 
     This component render the login interface and send the requests to the backend
 
@@ -167,7 +167,7 @@ Ensure that you have the following installed on your system:
     - Effects:
       -The useEffect hook checks if the user is logged in. If so, it navigates to the "/Feelings" page.
     
-    #### Feelings:
+   #### Feelings:
    
     This component renders the feelings selection interface, allowing users to choose their current emotion.
 
