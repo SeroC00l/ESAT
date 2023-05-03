@@ -454,8 +454,6 @@ These API routes are used by the frontend to interact with the backend, allowing
 
 ## 8. Deployment
 
-Provide detailed instructions on how to deploy your project in a production environment. If you use any specific service, include information on how to set it up.
-
 For deploying this application, we will use a Linux server (Ubuntu Server). The frontend will be served using Nginx after running `npm run build` to generate the static files, and MongoDB will be installed and set up as a service for the database. Finally, the backend will be managed using PM2 and configured to start on boot.
 
 Follow these steps to deploy your application:
@@ -539,7 +537,35 @@ Then, follow the instructions given by the command to enable PM2 to start on boo
 
 Your application is now deployed and running on your Ubuntu Server.
 
-## 19 License
-State the license under which your project is distributed.
+## 9. License
 
-Don't forget to review and adapt this outline to your project's specific needs. It's also helpful to add code examples and screenshots where appropriate, to illustrate how your application works.
+This project is licensed under the MIT License, which allows for free, open-source use and distribution, as well as modifications of the software. The MIT License grants permission for any person obtaining a copy of this software and associated documentation files to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the conditions that the copyright notice and permission notice shall be included in all copies or substantial portions of the Software.
+
+The full text of the MIT License can be found below:
+
+```
+MIT License
+
+Copyright (c) 2023 Alejandro Urrea
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+Remember to replace `[year]` with the current year and `[full name]` with your name or your organization's name.
+
