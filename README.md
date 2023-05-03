@@ -86,7 +86,7 @@ The frontend should now be running on http://localhost:5173 (or another availabl
 
 ## 4. Project Structure
 
-your-project-name/
+`your-project-name/
 │
 ├── backend/
 │   ├── src/
@@ -117,7 +117,7 @@ your-project-name/
 |   ├── package.json
 |   └── vite.config.js
 |
-└── README.md  
+└── README.md`  
 
 # Backend
 
