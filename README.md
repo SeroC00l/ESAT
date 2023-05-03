@@ -54,12 +54,35 @@ Ensure that you have the following installed on your system:
 2. Navigate to the frontend directory within the project:
   - cd your-project-name/frontend
  
-3. Install the dependencies using npm
+3. Install the dependencies using npm:
   - npm install
 
-4. Start the development server.
+4. Start the development server:
   - npm run dev
- The frontend should now be running on http://localhost:5173 (or another available port). 
+The frontend should now be running on http://localhost:5173 (or another available port). 
+ 
+# Data Base
+
+1. Esure you have mongodb installed in your machine:
+  - mongod --version
+
+2. Start the data base on your machine:
+  - mongod
+ The database should now be runung on mongodb://localhost:27017
+ 
+ * you can also install mongoDB Compass to manage your database on the visual way
+
+# Backend
+
+1. Navigate to the backend directory within the project:
+ - cd your-project-name/backend
+
+2. Install the dependencies using npm:
+  - npm install
+ 
+3. Start the backend server:
+  - npm run dev
+ The backend should now be runung on http://localhost:3000
 
 ## 4. Project Structure
 Explain the organization of folders and files in your project, as well as their purpose.
