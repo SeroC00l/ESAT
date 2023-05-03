@@ -222,7 +222,7 @@ Ensure that you have the following installed on your system:
    
 #### Components
 
-  ####Feeling:
+  #### Feeling:
   
      This component renders the emotion-based questions interface depending on the user's selected emotion.
 
@@ -248,7 +248,7 @@ Ensure that you have the following installed on your system:
       
      This component uses React Hooks and the Context API to access and manipulate data. It also uses Link components from react-router-dom for navigation between different views based on the user's emotion and responses.
 
-  ####Header:
+  #### Header:
   
      This component renders the header of the application, displaying a logo and conditional navigation links depending on the user's role and location.
      
@@ -269,7 +269,7 @@ Ensure that you have the following installed on your system:
      
      This component uses React Hooks and the Context API to access and manipulate data. It also uses Link components from react-router-dom for conditional navigation between different views based on the user's role and location. The header's styling and animation are defined using styled-components and keyframes.
 
-  ####Message:
+  #### Message:
   
     This component renders a message input for the user to provide additional details about their feeling, based on their selected emotion, job-related status, and resignation intent.
 
@@ -359,15 +359,99 @@ Ensure that you have the following installed on your system:
     This component uses React Hooks, the Context API, and a custom hook (useFeelings) to send the data to the backend. The styled-components library is used to style the title. The component's behavior depends on the selected emotion, user inputs, and restrictions for submitting data once per day.
 
 ## 6. Backend Features (Node.js)
-Description of the backend features and how they interact with the React application.
 
-- Routes
-- Controllers
-- Models
-- Middleware (if applicable)
+The backend of the application is built using Node.js, and it is responsible for handling the data processing, storage, and retrieval. The backend interacts with the React frontend through APIs, which enable the transfer of data between the frontend and backend. The backend consists of several key components:
+
+- Routes: These define the endpoints that the frontend interacts with to send and receive data. The routes map the incoming requests to the appropriate controllers that handle the specific functionalities.
+
+- Controllers: These contain the logic for handling incoming requests and performing the required operations, such as processing data, interacting with the database, and returning responses to the frontend. Controllers are responsible for executing the appropriate actions based on the request and route.
+
+- Models: These define the structure of the data and how it should be stored in the database. Models enforce data validation rules and ensure that the data is consistent and follows the defined schema. They also handle the interactions with the database, such as querying, inserting, updating, and deleting records.
+
+- Middleware: Middleware functions are used to perform specific tasks or apply additional processing to the incoming requests before they reach the controllers. Middleware can be used for tasks such as authentication, authorization, error handling, and logging.
+
+The backend features enable the React application to securely store and manage user data, ensuring that the frontend can access and display the data as needed. By handling the data processing and storage on the backend, the application can maintain a clean separation of concerns, with the frontend focusing on the user interface and the backend focusing on data management.
 
 ## 7. REST API
-Document the REST API routes and how they interact with the frontend. Include HTTP methods, parameters, request bodies, and expected responses.
+
+The REST API is used to communicate between the frontend and the backend of the application. This section documents the available API routes, their respective HTTP methods, expected parameters, request bodies, and responses.
+
+### API Base URL: `/api`
+
+### Auth Routes
+
+**POST `/auth/login`**
+
+- Description: Authenticate a user with their email and password.
+- Request body:
+  - `email` (string) - The user's email.
+  - `password` (string) - The user's password.
+- Response: Returns a JSON object containing the authentication status, JWT token, user information, and an HTTP status code.
+  - `message` (string) - "ok" on successful login.
+  - `token` (string) - The JWT token.
+  - `name` (string) - The user's name.
+  - `area` (string) - The user's area.
+  - `rol` (string) - The user's role.
+  - `supervisor` (string) - The user's supervisor.
+
+### User Routes
+
+**GET `/users`**
+
+- Description: Retrieve all users.
+- Response: Returns a JSON array of user objects containing user information.
+
+### Feeling Routes
+
+**POST `/`**
+
+- Description: Create a new feeling record.
+- Request body: JSON object containing the feeling data.
+- Response: Returns the created feeling record.
+
+**GET `/feelings`**
+
+- Description: Retrieve all feeling records.
+- Response: Returns a JSON array of feeling objects containing feeling information.
+
+**GET `/supervisors`**
+
+- Description: Retrieve a list of unique supervisors.
+- Response: Returns a JSON array containing a list of unique supervisors.
+
+**GET `/export`**
+
+- Description: Export feeling data to Excel.
+- Response: Returns an Excel file containing the feeling data.
+
+**PUT `/:id`**
+
+- Description: Update a feeling record by ID.
+- URL parameter: `id` (string) - The ID of the feeling record to update.
+- Request body: JSON object containing the updated feeling data.
+- Response: Returns the updated feeling record.
+
+**PATCH `/:id`**
+
+- Description: Update the action taken field of a feeling record by ID.
+- URL parameter: `id` (string) - The ID of the feeling record to update.
+- Request body: JSON object containing the updated action taken data.
+- Response: Returns the updated feeling record.
+
+**PATCH `/second/:id`**
+
+- Description: Update the second action field of a feeling record by ID.
+- URL parameter: `id` (string) - The ID of the feeling record to update.
+- Request body: JSON object containing the updated second action data.
+- Response: Returns the updated feeling record.
+
+**DELETE `/:id`**
+
+- Description: Delete a feeling record by ID.
+- URL parameter: `id` (string) - The ID of the feeling record to delete.
+- Response: Returns a JSON object containing the deleted feeling record.
+
+These API routes are used by the frontend to interact with the backend, allowing the application to create, read, update, and delete feeling records, as well as authenticate users and retrieve user information.
 
 ## 8. Testing
 Explain how the components and features of your project are tested. Include information about the testing tools used and how to run the tests.
