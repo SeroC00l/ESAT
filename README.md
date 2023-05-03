@@ -49,25 +49,25 @@ Ensure that you have the following installed on your system:
 # Frontend
 
 1. Clone the repository to your local machine:
-  - git clone https://github.com/SeroC00l/ESAT
+  - `git clone https://github.com/SeroC00l/ESAT`
   
 2. Navigate to the frontend directory within the project:
-  - cd your-project-name/frontend
+  - `cd your-project-name/frontend`
  
 3. Install the dependencies using npm:
-  - npm install
+  - `npm install`
 
 4. Start the development server:
-  - npm run dev
+  - `npm run dev`
 The frontend should now be running on http://localhost:5173 (or another available port). 
  
 # Data Base
 
 1. Esure you have mongodb installed in your machine:
-  - mongod --version
+  - `mongod --version`
 
 2. Start the data base on your machine:
-  - mongod
+  - `mongod`
  The database should now be runung on mongodb://localhost:27017
  
  * you can also install mongoDB Compass to manage your database on the visual way
@@ -75,13 +75,13 @@ The frontend should now be running on http://localhost:5173 (or another availabl
 # Backend
 
 1. Navigate to the backend directory within the project:
- - cd your-project-name/backend
+ - `cd your-project-name/backend`
 
 2. Install the dependencies using npm:
-  - npm install
+  - `npm install`
  
 3. Start the backend server:
-  - npm run dev
+  - `npm run dev`
  The backend should now be runung on http://localhost:3000
 
 ## 4. Project Structure
@@ -124,7 +124,9 @@ your-project-name/
 # Backend
 
 - `controllers/` - Contains the controller files responsible for handling incoming HTTP
--   
+- `database/`  - Contains the databbase conection
+- `middlewares/` - Contains middleware functions that are executed before the request is passed to the controller.
+- `models/` - Contains Mongoose schema definitions and models for interacting with the MongoDB database
 
 ## 5. React Components
 Description of the React components used in the project. For each component, include the following:
