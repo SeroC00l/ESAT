@@ -121,7 +121,8 @@ your-project-name/
 
 # Backend
 
-- `controllers/` - Contains the controller files responsible for handling incoming HTTP  
+- `controllers/` - Contains the controller files responsible for handling incoming HTTP
+-   
 
 ## 5. React Components
 Description of the React components used in the project. For each component, include the following:
