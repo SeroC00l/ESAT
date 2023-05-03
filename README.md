@@ -1,57 +1,61 @@
-Nombre del Proyecto
-Escribe un breve título y una descripción que explique de qué trata tu proyecto.
+ESAT Software
+Employee Satisfaction Software measures the level of satisfaction employees have with their work and helps to receive feedback in a friendly manner.
 
-Tabla de Contenidos
-Introducción
-Requisitos
-Instalación
-Estructura del Proyecto
-Componentes de React
-Funcionalidades del Backend (Node.js)
-API REST
-Pruebas
-Despliegue
-Licencia
-1. Introducción
-Explica en detalle el propósito de tu proyecto, qué problemas resuelve y cómo se integran React JS y Node.js en su desarrollo.
+## Table of Contents
+1. Introduction
+2. Requirements
+3. Installation
+4. Project Structure
+5. React Components
+6. Backend Features (Node.js)
+7. REST API
+8. Testing
+9. Deployment
+10. License
 
-2. Requisitos
-Enumera las dependencias y herramientas necesarias para ejecutar tu proyecto. Por ejemplo:
+## 1. Introduction
+Explain in detail the purpose of your project, what problems it solves, and how React JS and Node.js are integrated into its development.
 
-Node.js
-npm o yarn
-Un navegador web moderno
-3. Instalación
-Describe los pasos para instalar y ejecutar el proyecto en un entorno local. Incluye comandos específicos si es necesario.
+## 2. Requirements
+List the dependencies and tools necessary to run your project. For example:
 
-4. Estructura del Proyecto
-Explica la organización de carpetas y archivos en tu proyecto, así como su propósito.
+- Node.js
+- npm or yarn
+- A modern web browser
 
-5. Componentes de React
-Descripción de los componentes de React utilizados en el proyecto. Por cada componente, incluye lo siguiente:
+## 3. Installation
+Describe the steps to install and run the project on a local environment. Include specific commands if necessary.
 
-Nombre del componente
-Propósito
-Props (si aplica)
-Estado (si aplica)
-Funciones y eventos (si aplica)
-6. Funcionalidades del Backend (Node.js)
-Descripción de las funcionalidades del backend y cómo interactúan con la aplicación de React.
+## 4. Project Structure
+Explain the organization of folders and files in your project, as well as their purpose.
 
-Rutas
-Controladores
-Modelos
-Middleware (si aplica)
-7. API REST
-Documenta las rutas de la API REST y cómo interactúan con el frontend. Incluye los métodos HTTP, parámetros, cuerpos de solicitud y respuestas esperadas.
+## 5. React Components
+Description of the React components used in the project. For each component, include the following:
 
-8. Pruebas
-Explica cómo se prueban los componentes y funcionalidades de tu proyecto. Incluye información sobre las herramientas de prueba utilizadas y cómo ejecutar las pruebas.
+- Component name
+- Purpose
+- Props (if applicable)
+- State (if applicable)
+- Functions and events (if applicable)
 
-9. Despliegue
-Proporciona instrucciones detalladas sobre cómo desplegar tu proyecto en un entorno de producción. Si utilizas algún servicio en particular, incluye información sobre cómo configurarlo.
+## 6. Backend Features (Node.js)
+Description of the backend features and how they interact with the React application.
 
-10. Licencia
-Indica la licencia bajo la cual se distribuye tu proyecto.
+- Routes
+- Controllers
+- Models
+- Middleware (if applicable)
 
-No olvides revisar y adaptar este esquema a las necesidades específicas de tu proyecto. También es útil agregar ejemplos de código y capturas de pantalla cuando sea apropiado, para ilustrar cómo funciona tu aplicación.
+## 7. REST API
+Document the REST API routes and how they interact with the frontend. Include HTTP methods, parameters, request bodies, and expected responses.
+
+## 8. Testing
+Explain how the components and features of your project are tested. Include information about the testing tools used and how to run the tests.
+
+## 9. Deployment
+Provide detailed instructions on how to deploy your project in a production environment. If you use any specific service, include information on how to set it up.
+
+## 10. License
+State the license under which your project is distributed.
+
+Don't forget to review and adapt this outline to your project's specific needs. It's also helpful to add code examples and screenshots where appropriate, to illustrate how your application works.
